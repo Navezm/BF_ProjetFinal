@@ -11,25 +11,12 @@ import java.time.LocalDate;
 
 @EqualsAndHashCode(callSuper = true)
 @MappedSuperclass
-@ToString
-@Getter
-@Setter
+@Data
 public abstract class Order extends BaseEntity<Long> {
     private StatusEnum status;
-    private LocalDate orderDate;
 
     @OneToOne(targetEntity = User.class)
     private User user;
-
-    Order(){
-        this.orderDate = LocalDate.now();
-    }
-
-    Order(StatusEnum status, User user){
-        this();
-        this.status = status;
-        this.user = user;
-    }
 
     public abstract void changeStatus(StatusEnum status);
 }

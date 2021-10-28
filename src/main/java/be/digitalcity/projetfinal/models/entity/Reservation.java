@@ -6,25 +6,18 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import java.time.LocalDate;
-import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-public class PaintingPurchase extends Order {
-    @ManyToMany(targetEntity = Painting.class)
-    private List<Painting> paintings;
+public class Reservation extends Order {
+    private LocalDate startDate;
+    private LocalDate endDate;
 
-    @ManyToOne(targetEntity = Address.class)
-    private Address address;
-
-    @Override
-    public void changeStatus(StatusEnum status) {
-        this.setStatus(status);
-    }
+    @ManyToOne(targetEntity = EventCategory.class)
+    private EventCategory eventCategory;
 
     @Override
     public void prePersist() {
@@ -34,5 +27,10 @@ public class PaintingPurchase extends Order {
     @Override
     public void preUpdate() {
         this.updatedAt = LocalDate.now();
+    }
+
+    @Override
+    public void changeStatus(StatusEnum status) {
+        this.setStatus(status);
     }
 }
