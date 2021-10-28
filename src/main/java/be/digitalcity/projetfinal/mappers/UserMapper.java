@@ -14,4 +14,6 @@ public interface UserMapper {
     UserDTO mapFromEntity(User entity);
     @InheritInverseConfiguration
     User mapFromDto(UserDTO dto);
+
+
 }
