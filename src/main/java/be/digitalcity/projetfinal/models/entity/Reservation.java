@@ -5,6 +5,7 @@ import be.digitalcity.projetfinal.util.enums.StatusEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import java.time.LocalDate;
@@ -13,7 +14,9 @@ import java.time.LocalDate;
 @Entity
 @Data
 public class Reservation extends Order {
+    @Column(nullable = false)
     private LocalDate startDate;
+    @Column(nullable = false)
     private LocalDate endDate;
 
     @ManyToOne(targetEntity = EventCategory.class)

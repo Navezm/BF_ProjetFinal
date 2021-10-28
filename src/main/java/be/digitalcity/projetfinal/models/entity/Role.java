@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Data
 @Table(name = "Security_Group")
 public class Role extends BaseEntity<Long> {
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Override

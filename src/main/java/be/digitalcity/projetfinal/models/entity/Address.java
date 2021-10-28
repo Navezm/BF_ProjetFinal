@@ -4,6 +4,7 @@ import be.digitalcity.projetfinal.models.entity.abstractClass.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.time.LocalDate;
 
@@ -11,9 +12,13 @@ import java.time.LocalDate;
 @Entity
 @Data
 public class Address extends BaseEntity<Long> {
+    @Column(nullable = false, unique = true)
     private String street;
+    @Column(nullable = false, unique = true)
     private String number;
+    @Column(nullable = false, unique = true)
     private String postCode;
+    @Column(nullable = false, unique = true)
     private String city;
 
     @Override

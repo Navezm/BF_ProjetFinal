@@ -13,14 +13,17 @@ import java.util.List;
 @Data
 @Table(name = "Security_User")
 public class User extends BaseEntity<Long> {
+    @Column(nullable = false, unique = true)
     private String username;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false, unique = true)
     private String email;
 
     @OneToMany(targetEntity = Role.class)
     private List<Role> roles;
 
-    @OneToOne(targetEntity = Group.class)
+    @ManyToOne(targetEntity = Group.class)
     private Group group;
 
     @ManyToOne(targetEntity = Address.class)

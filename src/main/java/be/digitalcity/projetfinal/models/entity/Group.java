@@ -13,6 +13,7 @@ import java.util.Set;
 @Data
 @Table(name = "Security_Group")
 public class Group extends BaseEntity<Long> {
+    @Column(nullable = false, unique = true)
     private String name;
 
     @ManyToMany(targetEntity = Role.class)
