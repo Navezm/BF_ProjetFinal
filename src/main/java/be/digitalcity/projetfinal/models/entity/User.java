@@ -1,8 +1,7 @@
 package be.digitalcity.projetfinal.models.entity;
 
 import be.digitalcity.projetfinal.models.entity.abstractClass.BaseEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,7 +9,11 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Data
+@ToString
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Security_User")
 public class User extends BaseEntity<Long> {
     @Column(nullable = false, unique = true)

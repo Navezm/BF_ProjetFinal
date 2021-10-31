@@ -2,8 +2,7 @@ package be.digitalcity.projetfinal.models.entity;
 
 import be.digitalcity.projetfinal.models.entity.abstractClass.Order;
 import be.digitalcity.projetfinal.util.enums.StatusEnum;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -12,7 +11,11 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Data
+@ToString
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class PicturePurchase extends Order {
     @ManyToMany(targetEntity = Picture.class)
     private List<Picture> pictures;
