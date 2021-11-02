@@ -41,7 +41,9 @@ public class EventCategoryServiceImpl implements EventCategoryService {
         EventCategory toDelete = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("The event category doesn't exist"));
 
-        repository.delete(toDelete);
+        toDelete.setActive(false);
+
+        repository.save(toDelete);
 
         return mapper.toDto(toDelete);
     }

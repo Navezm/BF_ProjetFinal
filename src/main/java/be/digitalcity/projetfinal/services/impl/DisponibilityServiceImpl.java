@@ -41,7 +41,9 @@ public class DisponibilityServiceImpl implements DisponibilityService {
         Disponibility toDelete = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("The disponibility doesn't exist"));
 
-        repository.delete(toDelete);
+        toDelete.setActive(false);
+
+        repository.save(toDelete);
 
         return mapper.toDto(toDelete);
     }

@@ -41,7 +41,9 @@ public class PicturePurchaseServiceImpl implements PicturePurchaseService {
         PicturePurchase toDelete = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("The picture purchase doesn't exist"));
 
-        repository.delete(toDelete);
+        toDelete.setActive(false);
+
+        repository.save(toDelete);
 
         return mapper.toDto(toDelete);
     }

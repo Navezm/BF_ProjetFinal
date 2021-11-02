@@ -42,7 +42,9 @@ public class PictureServiceImpl implements PictureService {
         Picture toDelete = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("The picture doesn't exist"));
 
-        repository.delete(toDelete);
+        toDelete.setActive(false);
+
+        repository.save(toDelete);
 
         return mapper.toDto(toDelete);
     }

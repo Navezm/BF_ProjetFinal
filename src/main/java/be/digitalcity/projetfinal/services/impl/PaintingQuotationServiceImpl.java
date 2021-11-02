@@ -41,7 +41,9 @@ public class PaintingQuotationServiceImpl implements PaintingQuotationService {
         PaintingQuotation toDelete = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("The painting quotation doesn't exist"));
 
-        repository.delete(toDelete);
+        toDelete.setActive(false);
+
+        repository.save(toDelete);
 
         return mapper.toDto(toDelete);
     }

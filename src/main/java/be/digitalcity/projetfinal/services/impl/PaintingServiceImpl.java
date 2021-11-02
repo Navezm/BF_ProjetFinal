@@ -41,7 +41,9 @@ public class PaintingServiceImpl implements PaintingService {
         Painting toDelete = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("The painting doesn't exist"));
 
-        repository.delete(toDelete);
+        toDelete.setActive(false);
+
+        repository.save(toDelete);
 
         return mapper.toDto(toDelete);
     }

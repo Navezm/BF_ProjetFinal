@@ -41,7 +41,9 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation toDelete = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("The reservation doesn't exist"));
 
-        repository.delete(toDelete);
+        toDelete.setActive(false);
+
+        repository.save(toDelete);
 
         return mapper.toDto(toDelete);
     }

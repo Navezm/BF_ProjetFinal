@@ -43,7 +43,9 @@ public class AddressServiceImpl implements AddressService {
         Address toDelete = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("This address does not exist"));
 
-        repository.delete(toDelete);
+        toDelete.setActive(false);
+
+        repository.save(toDelete);
 
         return mapper.toDto(toDelete);
     }

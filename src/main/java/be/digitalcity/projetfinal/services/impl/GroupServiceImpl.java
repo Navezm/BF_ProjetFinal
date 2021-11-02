@@ -41,7 +41,9 @@ public class GroupServiceImpl implements GroupService {
         Group toDelete = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("The group doesn't exist"));
 
-        repository.delete(toDelete);
+        toDelete.setActive(false);
+
+        repository.save(toDelete);
 
         return mapper.toDto(toDelete);
     }
