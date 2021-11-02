@@ -1,8 +1,8 @@
 package be.digitalcity.projetfinal.controller;
 
-import be.digitalcity.projetfinal.models.dto.RoleDTO;
-import be.digitalcity.projetfinal.models.form.RoleForm;
-import be.digitalcity.projetfinal.services.RoleService;
+import be.digitalcity.projetfinal.models.dto.PaintingDTO;
+import be.digitalcity.projetfinal.models.form.PaintingForm;
+import be.digitalcity.projetfinal.services.PaintingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,37 +11,37 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "role")
-public class RoleController {
-    private final RoleService service;
+@RequestMapping("painting")
+public class PaintingController {
+    private final PaintingService service;
 
     @Autowired
-    public RoleController(RoleService service) {
+    public PaintingController(PaintingService service) {
         this.service = service;
     }
 
     @GetMapping({"", "/all"})
-    public ResponseEntity<List<RoleDTO>> getAll(){
+    public ResponseEntity<List<PaintingDTO>> getAll(){
         return ResponseEntity.ok(service.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RoleDTO> getOne(@PathVariable Long id){
+    public ResponseEntity<PaintingDTO> getOne(@PathVariable Long id){
         return ResponseEntity.ok(service.getOne(id));
     }
 
     @PostMapping
-    public ResponseEntity<RoleDTO> insert(@Valid @RequestBody RoleForm form){
+    public ResponseEntity<PaintingDTO> insert(@Valid @RequestBody PaintingForm form){
         return ResponseEntity.ok(service.insert(form));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<RoleDTO> delete(@PathVariable Long id){
+    public ResponseEntity<PaintingDTO> delete(@PathVariable Long id){
         return ResponseEntity.ok(service.delete(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RoleDTO> update(@PathVariable Long id, @Valid @RequestBody RoleForm form){
+    public ResponseEntity<PaintingDTO> update(@PathVariable Long id, @Valid @RequestBody PaintingForm form){
         return ResponseEntity.ok(service.update(id, form));
     }
 }

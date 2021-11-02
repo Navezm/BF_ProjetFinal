@@ -1,8 +1,9 @@
 package be.digitalcity.projetfinal.controller;
 
-import be.digitalcity.projetfinal.models.dto.RoleDTO;
-import be.digitalcity.projetfinal.models.form.RoleForm;
-import be.digitalcity.projetfinal.services.RoleService;
+import be.digitalcity.projetfinal.models.dto.GroupDTO;
+import be.digitalcity.projetfinal.models.form.GroupForm;
+import be.digitalcity.projetfinal.services.GroupService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,37 +12,37 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "role")
-public class RoleController {
-    private final RoleService service;
+@RequestMapping("group")
+public class GroupController {
+    private final GroupService service;
 
     @Autowired
-    public RoleController(RoleService service) {
+    public GroupController(GroupService service) {
         this.service = service;
     }
 
     @GetMapping({"", "/all"})
-    public ResponseEntity<List<RoleDTO>> getAll(){
+    public ResponseEntity<List<GroupDTO>> getAll(){
         return ResponseEntity.ok(service.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RoleDTO> getOne(@PathVariable Long id){
+    public ResponseEntity<GroupDTO> getOne(@PathVariable Long id){
         return ResponseEntity.ok(service.getOne(id));
     }
 
     @PostMapping
-    public ResponseEntity<RoleDTO> insert(@Valid @RequestBody RoleForm form){
+    public ResponseEntity<GroupDTO> insert(@Valid @RequestBody GroupForm form){
         return ResponseEntity.ok(service.insert(form));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<RoleDTO> delete(@PathVariable Long id){
+    public ResponseEntity<GroupDTO> delete(@PathVariable Long id){
         return ResponseEntity.ok(service.delete(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RoleDTO> update(@PathVariable Long id, @Valid @RequestBody RoleForm form){
+    public ResponseEntity<GroupDTO> update(@PathVariable Long id, @Valid @RequestBody GroupForm form){
         return ResponseEntity.ok(service.update(id, form));
     }
 }
