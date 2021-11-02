@@ -2,6 +2,7 @@ package be.digitalcity.projetfinal.services;
 
 import be.digitalcity.projetfinal.models.dto.UserDTO;
 import be.digitalcity.projetfinal.models.form.userForm.UserInsertForm;
+import be.digitalcity.projetfinal.models.form.userForm.UserRegisterForm;
 import be.digitalcity.projetfinal.models.form.userForm.UserUpdateForm;
 
 import java.util.List;
@@ -15,5 +16,5 @@ public interface UserService {
 
     UserDTO update(Long id, UserUpdateForm userUpdateForm);
 
-    UserDTO insert(UserInsertForm userInsertForm);
+    UserDTO insert(UserRegisterForm userRegisterForm);
 }

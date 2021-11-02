@@ -1,18 +1,19 @@
 package be.digitalcity.projetfinal.services;
 
 import be.digitalcity.projetfinal.models.dto.PaintingDTO;
+import be.digitalcity.projetfinal.models.dto.PictureDTO;
 import be.digitalcity.projetfinal.models.form.PictureForm;
 
 import java.util.List;
 
 public interface PictureService {
-    List<PaintingDTO> findAll();
+    List<PictureDTO> findAll();
 
-    PaintingDTO getOne(Long id);
+    PictureDTO getOne(Long id);
 
-    PaintingDTO delete(Long id);
+    PictureDTO delete(Long id);
 
-    PaintingDTO update(Long id, PictureForm pictureForm);
+    PictureDTO update(Long id, PictureForm pictureForm);
 
-    PaintingDTO insert(PictureForm pictureForm);
+    PictureDTO insert(PictureForm pictureForm);
 }

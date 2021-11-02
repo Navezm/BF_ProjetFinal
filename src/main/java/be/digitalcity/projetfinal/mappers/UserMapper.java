@@ -2,6 +2,7 @@ package be.digitalcity.projetfinal.mappers;
 
 import be.digitalcity.projetfinal.models.dto.UserDTO;
 import be.digitalcity.projetfinal.models.entity.User;
+import be.digitalcity.projetfinal.models.form.userForm.UserInsertForm;
 import be.digitalcity.projetfinal.models.form.userForm.UserRegisterForm;
 import org.springframework.stereotype.Service;
 
@@ -66,4 +67,12 @@ public class UserMapper implements BaseMapper<UserDTO, UserRegisterForm, User> {
 
         return user;
     }
+
+//    public User fromFormToEntity(UserInsertForm form){
+//        if (form == null) return null;
+//
+//        User user = new User();
+//
+//        user.setRoles(form.getRoles());
+//    }
 }
