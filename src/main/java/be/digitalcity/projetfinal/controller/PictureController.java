@@ -1,6 +1,7 @@
 package be.digitalcity.projetfinal.controller;
 
 import be.digitalcity.projetfinal.models.dto.PictureDTO;
+import be.digitalcity.projetfinal.models.entity.Picture;
 import be.digitalcity.projetfinal.models.form.PictureForm;
 import be.digitalcity.projetfinal.services.PictureService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,16 @@ public class PictureController {
     @GetMapping("/{id}")
     public ResponseEntity<PictureDTO> getOne(@PathVariable Long id){
         return ResponseEntity.ok(service.getOne(id));
+    }
+
+    @GetMapping("/type/{id}")
+    public ResponseEntity<List<PictureDTO>> getByType(@PathVariable Long id){
+        return ResponseEntity.ok(service.findByType(id));
+    }
+
+    @GetMapping("/isAvailable")
+    public ResponseEntity<List<PictureDTO>> getByAvailibility(){
+        return ResponseEntity.ok(service.findByAvailability());
     }
 
     @PostMapping

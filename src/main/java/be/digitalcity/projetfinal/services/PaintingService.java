@@ -5,14 +5,6 @@ import be.digitalcity.projetfinal.models.form.PaintingForm;
 
 import java.util.List;
 
-public interface PaintingService {
-    List<PaintingDTO> findAll();
+public interface PaintingService extends ProductService<PaintingDTO, PaintingForm> {
 
-    PaintingDTO getOne(Long id);
-
-    PaintingDTO delete(Long id);
-
-    PaintingDTO update(Long id, PaintingForm paintingForm);
-
-    PaintingDTO insert(PaintingForm paintingForm);
 }

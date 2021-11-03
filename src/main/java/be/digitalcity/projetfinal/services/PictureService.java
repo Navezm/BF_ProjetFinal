@@ -6,14 +6,6 @@ import be.digitalcity.projetfinal.models.form.PictureForm;
 
 import java.util.List;
 
-public interface PictureService {
-    List<PictureDTO> findAll();
+public interface PictureService extends ProductService<PictureDTO, PictureForm> {
 
-    PictureDTO getOne(Long id);
-
-    PictureDTO delete(Long id);
-
-    PictureDTO update(Long id, PictureForm pictureForm);
-
-    PictureDTO insert(PictureForm pictureForm);
 }

@@ -88,10 +88,10 @@ public class DataBaseFiller implements InitializingBean {
 
         List<Painting> paintingList = List.of(
                 new Painting(paintingTypeList.get(0), "Paint1", "src", "description", BigDecimal.valueOf(1.20), true),
-                new Painting(paintingTypeList.get(0), "Paint2", "src1", "description1", BigDecimal.valueOf(253), true),
+                new Painting(paintingTypeList.get(1), "Paint2", "src1", "description1", BigDecimal.valueOf(253), true),
                 new Painting(paintingTypeList.get(0), "Paint3", "src2", "description2", BigDecimal.valueOf(24.5), true),
-                new Painting(paintingTypeList.get(0), "Paint4", "src3", "description3", BigDecimal.valueOf(82.3), true),
-                new Painting(paintingTypeList.get(0), "Paint5", "src4", "description4", BigDecimal.valueOf(4.658), true)
+                new Painting(paintingTypeList.get(2), "Paint4", "src3", "description3", BigDecimal.valueOf(82.3), true),
+                new Painting(paintingTypeList.get(2), "Paint5", "src4", "description4", BigDecimal.valueOf(4.658), true)
         );
 
 

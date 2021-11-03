@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Security_Group")
+@Table(name = "Security_Role")
 public class Role extends BaseEntity<Long> {
     @Column(nullable = false, unique = true)
     private String name;

@@ -30,6 +30,16 @@ public class PaintingController {
         return ResponseEntity.ok(service.getOne(id));
     }
 
+    @GetMapping("/type/{id}")
+    public ResponseEntity<List<PaintingDTO>> getByType(@PathVariable(value = "id") Long id){
+        return ResponseEntity.ok(service.findByType(id));
+    }
+
+    @GetMapping("/isAvailable")
+    public ResponseEntity<List<PaintingDTO>> getByAvailibility(){
+        return ResponseEntity.ok(service.findByAvailability());
+    }
+
     @PostMapping
     public ResponseEntity<PaintingDTO> insert(@Valid @RequestBody PaintingForm form){
         return ResponseEntity.ok(service.insert(form));

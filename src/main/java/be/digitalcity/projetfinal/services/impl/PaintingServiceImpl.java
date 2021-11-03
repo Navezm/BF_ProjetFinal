@@ -2,6 +2,7 @@ package be.digitalcity.projetfinal.services.impl;
 
 import be.digitalcity.projetfinal.mappers.PaintingMapper;
 import be.digitalcity.projetfinal.models.dto.PaintingDTO;
+import be.digitalcity.projetfinal.models.dto.PaintingTypeDTO;
 import be.digitalcity.projetfinal.models.entity.Painting;
 import be.digitalcity.projetfinal.models.form.PaintingForm;
 import be.digitalcity.projetfinal.repository.PaintingRepository;
@@ -72,5 +73,21 @@ public class PaintingServiceImpl implements PaintingService {
         repository.save(toInsert);
 
         return mapper.toDto(toInsert);
+    }
+
+    @Override
+    public List<PaintingDTO> findByType(Long id) {
+        return repository.findByType(id)
+                .stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PaintingDTO> findByAvailability() {
+        return repository.findByAvailibility()
+                .stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
     }
 }

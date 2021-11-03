@@ -2,6 +2,7 @@ package be.digitalcity.projetfinal.services.impl;
 
 import be.digitalcity.projetfinal.mappers.PictureMapper;
 import be.digitalcity.projetfinal.models.dto.PaintingDTO;
+import be.digitalcity.projetfinal.models.dto.PaintingTypeDTO;
 import be.digitalcity.projetfinal.models.dto.PictureDTO;
 import be.digitalcity.projetfinal.models.entity.Picture;
 import be.digitalcity.projetfinal.models.form.PictureForm;
@@ -73,5 +74,21 @@ public class PictureServiceImpl implements PictureService {
         repository.save(toInsert);
 
         return mapper.toDto(toInsert);
+    }
+
+    @Override
+    public List<PictureDTO> findByType(Long id) {
+        return repository.findByType(id)
+                .stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PictureDTO> findByAvailability() {
+        return repository.findByAvailibility()
+                .stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
     }
 }
