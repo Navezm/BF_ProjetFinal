@@ -18,12 +18,12 @@ public class Role extends BaseEntity<Long> {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Override
+    @PrePersist
     public void prePersist() {
         this.createdAt = LocalDate.now();
     }
 
-    @Override
+    @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDate.now();
     }

@@ -6,6 +6,8 @@ import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,17 +17,21 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class PicturePurchase extends Order {
     @ManyToMany(targetEntity = Picture.class)
     private List<Picture> pictures;
 
-    @Override
+    public PicturePurchase(StatusEnum status, User user, List<Picture> pictures) {
+        super(status, user);
+        this.pictures = pictures;
+    }
+
+    @PrePersist
     public void prePersist() {
         this.createdAt = LocalDate.now();
     }
 
-    @Override
+    @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDate.now();
     }

@@ -5,6 +5,8 @@ import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import java.time.LocalDate;
 
 @EqualsAndHashCode(callSuper = true)
@@ -20,12 +22,12 @@ public class Disponibility extends BaseEntity<Long> {
     @Column(nullable = false)
     private boolean status;
 
-    @Override
+    @PrePersist
     public void prePersist() {
         this.createdAt = LocalDate.now();
     }
 
-    @Override
+    @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDate.now();
     }

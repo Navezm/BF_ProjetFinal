@@ -11,6 +11,8 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 @MappedSuperclass
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public abstract class Order extends BaseEntity<Long> {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

@@ -32,12 +32,12 @@ public class User extends BaseEntity<Long> {
     @ManyToOne(targetEntity = Address.class)
     private Address address;
 
-    @Override
+    @PrePersist
     public void prePersist() {
         this.createdAt = LocalDate.now();
     }
 
-    @Override
+    @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDate.now();
     }

@@ -4,9 +4,7 @@ import be.digitalcity.projetfinal.models.entity.abstractClass.Order;
 import be.digitalcity.projetfinal.util.enums.StatusEnum;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,7 +14,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class PaintingPurchase extends Order {
     @ManyToMany(targetEntity = Painting.class)
     private List<Painting> paintings;
@@ -24,17 +21,23 @@ public class PaintingPurchase extends Order {
     @ManyToOne(targetEntity = Address.class)
     private Address address;
 
+    public PaintingPurchase(StatusEnum status, User user, List<Painting> paintings, Address address) {
+        super(status, user);
+        this.paintings = paintings;
+        this.address = address;
+    }
+
     @Override
     public void changeStatus(StatusEnum status) {
         this.setStatus(status);
     }
 
-    @Override
+    @PrePersist
     public void prePersist() {
         this.createdAt = LocalDate.now();
     }
 
-    @Override
+    @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDate.now();
     }

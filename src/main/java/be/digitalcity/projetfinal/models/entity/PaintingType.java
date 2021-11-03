@@ -5,6 +5,8 @@ import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import java.time.LocalDate;
 
 @EqualsAndHashCode(callSuper = true)
@@ -18,12 +20,12 @@ public class PaintingType extends BaseEntity<Long> {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Override
+    @PrePersist
     public void prePersist() {
         this.createdAt= LocalDate.now();
     }
 
-    @Override
+    @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDate.now();
     }

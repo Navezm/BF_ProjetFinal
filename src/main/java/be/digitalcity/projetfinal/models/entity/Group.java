@@ -23,12 +23,12 @@ public class Group extends BaseEntity<Long> {
     @JoinTable(name = "Security_Group_Role")
     private Set<Role> roleList;
 
-    @Override
+    @PrePersist
     public void prePersist() {
         this.createdAt = LocalDate.now();
     }
 
-    @Override
+    @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDate.now();
     }

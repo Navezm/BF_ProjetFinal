@@ -15,7 +15,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class PaintingQuotation extends Order {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -31,12 +30,20 @@ public class PaintingQuotation extends Order {
     @ManyToOne(targetEntity = PaintingType.class)
     private PaintingType paintingType;
 
-    @Override
+    public PaintingQuotation(FormatEnum format, ColorEnum colorChoice, String message, PaintingType paintingType, StatusEnum status, User user) {
+        super(status, user);
+        this.format = format;
+        this.colorChoice = colorChoice;
+        this.message = message;
+        this.paintingType = paintingType;
+    }
+
+    @PrePersist
     public void prePersist() {
         this.createdAt = LocalDate.now();
     }
 
-    @Override
+    @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDate.now();
     }
