@@ -3,11 +3,13 @@ package be.digitalcity.projetfinal.controller;
 import be.digitalcity.projetfinal.models.dto.PaintingPurchaseDTO;
 import be.digitalcity.projetfinal.models.form.PaintingPurchaseForm;
 import be.digitalcity.projetfinal.services.PaintingPurchaseService;
+import be.digitalcity.projetfinal.util.enums.StatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -28,6 +30,21 @@ public class PaintingPurchaseController {
     @GetMapping("/{id}")
     public ResponseEntity<PaintingPurchaseDTO> getOne(@PathVariable Long id){
         return ResponseEntity.ok(service.getOne(id));
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<PaintingPurchaseDTO>> getByUser(@PathVariable Long id){
+        return ResponseEntity.ok(service.findByUser(id));
+    }
+
+    @GetMapping("/status")
+    public ResponseEntity<List<PaintingPurchaseDTO>> getByStatus(@Valid @RequestBody StatusEnum status){
+        return ResponseEntity.ok(service.findByStatus(status));
+    }
+
+    @GetMapping("/date")
+    public ResponseEntity<List<PaintingPurchaseDTO>> getByOrderDate(@Valid @RequestBody LocalDate date){
+        return ResponseEntity.ok(service.findByOrderDate(date));
     }
 
     @PostMapping

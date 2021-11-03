@@ -5,14 +5,6 @@ import be.digitalcity.projetfinal.models.form.PaintingPurchaseForm;
 
 import java.util.List;
 
-public interface PaintingPurchaseService {
-    List<PaintingPurchaseDTO> findAll();
+public interface PaintingPurchaseService extends OrderService<PaintingPurchaseDTO, PaintingPurchaseForm> {
 
-    PaintingPurchaseDTO getOne(Long id);
-
-    PaintingPurchaseDTO delete(Long id);
-
-    PaintingPurchaseDTO update(Long id, PaintingPurchaseForm paintingPurchaseForm);
-
-    PaintingPurchaseDTO insert(PaintingPurchaseForm paintingPurchaseForm);
 }

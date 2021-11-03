@@ -6,8 +6,10 @@ import be.digitalcity.projetfinal.models.entity.PaintingPurchase;
 import be.digitalcity.projetfinal.models.form.PaintingPurchaseForm;
 import be.digitalcity.projetfinal.repository.PaintingPurchaseRepository;
 import be.digitalcity.projetfinal.services.PaintingPurchaseService;
+import be.digitalcity.projetfinal.util.enums.StatusEnum;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -70,5 +72,29 @@ public class PaintingPurchaseServiceImpl implements PaintingPurchaseService {
         repository.save(toInsert);
 
         return mapper.toDto(toInsert);
+    }
+
+    @Override
+    public List<PaintingPurchaseDTO> findByUser(Long id) {
+        return repository.findPaintingPurchasesByUserId(id)
+                .stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PaintingPurchaseDTO> findByStatus(StatusEnum status) {
+        return repository.findPaintingPurchasesByStatus(status)
+                .stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PaintingPurchaseDTO> findByOrderDate(LocalDate date) {
+        return repository.findPaintingPurchasesByCreatedAt(date)
+                .stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
     }
 }

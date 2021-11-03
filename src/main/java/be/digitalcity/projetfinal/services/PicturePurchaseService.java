@@ -5,14 +5,6 @@ import be.digitalcity.projetfinal.models.form.PicturePurchaseForm;
 
 import java.util.List;
 
-public interface PicturePurchaseService {
-    List<PicturePurchaseDTO> findAll();
+public interface PicturePurchaseService extends OrderService<PicturePurchaseDTO, PicturePurchaseForm> {
 
-    PicturePurchaseDTO getOne(Long id);
-
-    PicturePurchaseDTO delete(Long id);
-
-    PicturePurchaseDTO update(Long id, PicturePurchaseForm picturePurchaseForm);
-
-    PicturePurchaseDTO insert(PicturePurchaseForm picturePurchaseForm);
 }

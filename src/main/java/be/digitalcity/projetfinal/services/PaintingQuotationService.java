@@ -5,14 +5,6 @@ import be.digitalcity.projetfinal.models.form.PaintingQuotationForm;
 
 import java.util.List;
 
-public interface PaintingQuotationService {
-    List<PaintingQuotationDTO> findAll();
+public interface PaintingQuotationService extends OrderService<PaintingQuotationDTO, PaintingQuotationForm> {
 
-    PaintingQuotationDTO getOne(Long id);
-
-    PaintingQuotationDTO delete(Long id);
-
-    PaintingQuotationDTO update(Long id, PaintingQuotationForm paintingQuotationForm);
-
-    PaintingQuotationDTO insert(PaintingQuotationForm paintingQuotationForm);
 }
