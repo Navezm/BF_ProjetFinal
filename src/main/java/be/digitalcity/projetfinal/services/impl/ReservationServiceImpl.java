@@ -8,6 +8,7 @@ import be.digitalcity.projetfinal.repository.ReservationRepository;
 import be.digitalcity.projetfinal.services.ReservationService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -71,5 +72,29 @@ public class ReservationServiceImpl implements ReservationService {
         repository.save(toInsert);
 
         return mapper.toDto(toInsert);
+    }
+
+    @Override
+    public List<ReservationDTO> findByUser(Long id) {
+        return repository.findReservationsByUserId(id)
+                .stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReservationDTO> findByDate(LocalDate date) {
+        return repository.findReservationsByStartDate(date)
+                .stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReservationDTO> findByEventType(Long id) {
+        return repository.findReservationsByEventCategoryId(id)
+                .stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
     }
 }

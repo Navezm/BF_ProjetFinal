@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -29,6 +30,21 @@ public class ReservationController {
     @GetMapping("/{id}")
     public ResponseEntity<ReservationDTO> getOne(@PathVariable Long id){
         return ResponseEntity.ok(service.getOne(id));
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<ReservationDTO>> getByUser(@PathVariable Long id){
+        return ResponseEntity.ok(service.findByUser(id));
+    }
+
+    @GetMapping("/date")
+    public ResponseEntity<List<ReservationDTO>> getByDate(@RequestBody LocalDate date){
+        return ResponseEntity.ok(service.findByDate(date));
+    }
+
+    @GetMapping("/eventType/{id}")
+    public ResponseEntity<List<ReservationDTO>> getByEventType(@PathVariable Long id){
+        return ResponseEntity.ok(service.findByEventType(id));
     }
 
     @PostMapping
