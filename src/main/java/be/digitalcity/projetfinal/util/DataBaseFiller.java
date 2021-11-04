@@ -6,6 +6,7 @@ import be.digitalcity.projetfinal.util.enums.ColorEnum;
 import be.digitalcity.projetfinal.util.enums.FormatEnum;
 import be.digitalcity.projetfinal.util.enums.StatusEnum;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -29,6 +30,7 @@ public class DataBaseFiller implements InitializingBean {
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
 
+    @Autowired
     public DataBaseFiller(AddressRepository addressRepository, DisponibilityRepository disponibilityRepository, EventCategoryRepository eventCategoryRepository, GroupRepository groupRepository, PaintingRepository paintingRepository, PaintingQuotationRepository paintingQuotationRepository, PaintingPurchaseRepository paintingPurchaseRepository, PaintingTypeRepository paintingTypeRepository, PicturePurchaseRepository picturePurchaseRepository, PictureRepository pictureRepository, ReservationRepository reservationRepository, RoleRepository roleRepository, UserRepository userRepository) {
         this.addressRepository = addressRepository;
         this.disponibilityRepository = disponibilityRepository;

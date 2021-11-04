@@ -32,6 +32,7 @@ public class AddressMapper implements BaseMapper<AddressDTO, AddressForm, Addres
         addressDTO.setNumber(entity.getNumber());
         addressDTO.setCity(entity.getCity());
         addressDTO.setPostCode(entity.getPostCode());
+        addressDTO.setId(entity.getId());
 
         return addressDTO;
     }

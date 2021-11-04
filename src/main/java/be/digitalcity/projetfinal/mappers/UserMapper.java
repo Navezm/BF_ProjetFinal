@@ -49,6 +49,7 @@ public class UserMapper implements BaseMapper<UserDTO, UserRegisterForm, User> {
         userDTO.setRoles(entity.getRoles().stream()
                 .map(roleMapper::toDto)
                 .collect(Collectors.toList()));
+        userDTO.setId(entity.getId());
 
         return userDTO;
     }

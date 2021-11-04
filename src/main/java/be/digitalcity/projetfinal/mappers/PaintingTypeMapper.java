@@ -23,6 +23,7 @@ public class PaintingTypeMapper implements BaseMapper<PaintingTypeDTO, PaintingT
         PaintingTypeDTO paintingTypeDTO = new PaintingTypeDTO();
 
         paintingTypeDTO.setName(entity.getName());
+        paintingTypeDTO.setId(entity.getId());
 
         return paintingTypeDTO;
     }

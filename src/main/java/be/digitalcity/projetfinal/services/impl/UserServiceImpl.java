@@ -79,6 +79,14 @@ public class UserServiceImpl implements UserService {
         return mapper.toDto(toInsert);
     }
 
+    @Override
+    public List<UserDTO> findByGroup(Long id) {
+        return repository.findUsersByGroupId(id)
+                .stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
+    }
+
 //    @Override
 //    public UserDTO insert(UserInsertForm userInsertForm) {
 //        User toInsert = mapper.fromFormToEntity(userInsertForm);

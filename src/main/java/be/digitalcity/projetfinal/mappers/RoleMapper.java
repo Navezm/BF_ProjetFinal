@@ -23,6 +23,7 @@ public class RoleMapper implements BaseMapper<RoleDTO, RoleForm, Role>{
         RoleDTO roleDTO = new RoleDTO();
 
         roleDTO.setName(entity.getName());
+        roleDTO.setId(entity.getId());
 
         return roleDTO;
     }

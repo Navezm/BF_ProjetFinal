@@ -23,6 +23,7 @@ public class EventCategoryMapper implements BaseMapper<EventCategoryDTO, EventCa
         EventCategoryDTO eventCategoryDTO = new EventCategoryDTO();
 
         eventCategoryDTO.setName(entity.getName());
+        eventCategoryDTO.setId(entity.getId());
 
         return eventCategoryDTO;
     }

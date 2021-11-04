@@ -35,6 +35,11 @@ public class UserController {
         return ResponseEntity.ok(service.getOne(id));
     }
 
+    @GetMapping("/group/{id}")
+    public ResponseEntity<List<UserDTO>> getByGroup(@PathVariable Long id){
+        return ResponseEntity.ok(service.findByGroup(id));
+    }
+
     @PostMapping
     public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserRegisterForm form){
         return ResponseEntity.ok(service.insert(form));

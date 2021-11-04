@@ -25,6 +25,7 @@ public class DisponibilityMapper implements BaseMapper<DisponibilityDTO, Disponi
 
         disponibilityDTO.setDate(entity.getDate());
         disponibilityDTO.setStatus(entity.isStatus());
+        disponibilityDTO.setId(entity.getId());
 
         return disponibilityDTO;
     }

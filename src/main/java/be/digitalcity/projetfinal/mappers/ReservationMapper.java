@@ -41,6 +41,7 @@ public class ReservationMapper implements BaseMapper<ReservationDTO, Reservation
         reservationDTO.setEventCategory(eventCategoryMapper.toDto(entity.getEventCategory()));
         reservationDTO.setUser(userMapper.toDto(entity.getUser()));
         reservationDTO.setStatus(entity.getStatus());
+        reservationDTO.setId(entity.getId());
 
         return reservationDTO;
     }

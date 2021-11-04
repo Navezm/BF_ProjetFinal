@@ -41,6 +41,7 @@ public class PaintingMapper implements BaseMapper<PaintingDTO, PaintingForm, Pai
         paintingDTO.setPrice(entity.getPrice());
         paintingDTO.setName(entity.getName());
         paintingDTO.setSrc(entity.getSrc());
+        paintingDTO.setId(entity.getId());
 
         return paintingDTO;
     }

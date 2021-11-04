@@ -17,4 +17,6 @@ public interface UserService {
     UserDTO update(Long id, UserUpdateForm userUpdateForm);
 
     UserDTO insert(UserRegisterForm userRegisterForm);
+
+    List<UserDTO> findByGroup(Long id);
 }

@@ -41,6 +41,7 @@ public class PictureMapper implements BaseMapper<PictureDTO, PictureForm, Pictur
         pictureDTO.setPrice(entity.getPrice());
         pictureDTO.setName(entity.getName());
         pictureDTO.setSrc(entity.getSrc());
+        pictureDTO.setId(entity.getId());
 
         return pictureDTO;
     }
