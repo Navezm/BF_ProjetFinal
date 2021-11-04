@@ -1,15 +1,16 @@
 package be.digitalcity.projetfinal.services.impl;
 
 import be.digitalcity.projetfinal.mappers.PaintingQuotationMapper;
+import be.digitalcity.projetfinal.mappers.UtilMapper;
 import be.digitalcity.projetfinal.models.dto.PaintingQuotationDTO;
 import be.digitalcity.projetfinal.models.entity.PaintingQuotation;
 import be.digitalcity.projetfinal.models.form.PaintingQuotationForm;
+import be.digitalcity.projetfinal.models.form.typeForm.DateForm;
+import be.digitalcity.projetfinal.models.form.typeForm.StatusForm;
 import be.digitalcity.projetfinal.repository.PaintingQuotationRepository;
 import be.digitalcity.projetfinal.services.PaintingQuotationService;
-import be.digitalcity.projetfinal.util.enums.StatusEnum;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,10 +18,12 @@ import java.util.stream.Collectors;
 public class PaintingQuotationServiceImpl implements PaintingQuotationService {
     private final PaintingQuotationRepository repository;
     private final PaintingQuotationMapper mapper;
+    private final UtilMapper utilMapper;
 
-    public PaintingQuotationServiceImpl(PaintingQuotationRepository repository, PaintingQuotationMapper mapper) {
+    public PaintingQuotationServiceImpl(PaintingQuotationRepository repository, PaintingQuotationMapper mapper, UtilMapper utilMapper) {
         this.repository = repository;
         this.mapper = mapper;
+        this.utilMapper = utilMapper;
     }
 
     @Override
@@ -85,16 +88,16 @@ public class PaintingQuotationServiceImpl implements PaintingQuotationService {
     }
 
     @Override
-    public List<PaintingQuotationDTO> findByStatus(StatusEnum status) {
-        return repository.findPaintingPurchasesByStatus(status)
+    public List<PaintingQuotationDTO> findByStatus(StatusForm status) {
+        return repository.findPaintingPurchasesByStatus(utilMapper.fromStatusFormToStatus(status))
                 .stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<PaintingQuotationDTO> findByOrderDate(LocalDate date) {
-        return repository.findPaintingPurchasesByCreatedAt(date)
+    public List<PaintingQuotationDTO> findByOrderDate(DateForm date) {
+        return repository.findPaintingPurchasesByCreatedAt(utilMapper.fromDateFormToDate(date))
                 .stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());

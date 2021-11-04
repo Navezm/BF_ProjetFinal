@@ -2,6 +2,7 @@ package be.digitalcity.projetfinal.services;
 
 import be.digitalcity.projetfinal.models.dto.ReservationDTO;
 import be.digitalcity.projetfinal.models.form.ReservationForm;
+import be.digitalcity.projetfinal.models.form.typeForm.DateForm;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,7 +20,7 @@ public interface ReservationService {
 
     List<ReservationDTO> findByUser(Long id);
 
-    List<ReservationDTO> findByDate(LocalDate date);
+    List<ReservationDTO> findByDate(DateForm date);
 
     List<ReservationDTO> findByEventType(Long id);
 }

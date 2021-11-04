@@ -1,15 +1,16 @@
 package be.digitalcity.projetfinal.services.impl;
 
 import be.digitalcity.projetfinal.mappers.PicturePurchaseMapper;
+import be.digitalcity.projetfinal.mappers.UtilMapper;
 import be.digitalcity.projetfinal.models.dto.PicturePurchaseDTO;
 import be.digitalcity.projetfinal.models.entity.PicturePurchase;
 import be.digitalcity.projetfinal.models.form.PicturePurchaseForm;
+import be.digitalcity.projetfinal.models.form.typeForm.DateForm;
+import be.digitalcity.projetfinal.models.form.typeForm.StatusForm;
 import be.digitalcity.projetfinal.repository.PicturePurchaseRepository;
 import be.digitalcity.projetfinal.services.PicturePurchaseService;
-import be.digitalcity.projetfinal.util.enums.StatusEnum;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,10 +18,12 @@ import java.util.stream.Collectors;
 public class PicturePurchaseServiceImpl implements PicturePurchaseService {
     private final PicturePurchaseRepository repository;
     private final PicturePurchaseMapper mapper;
+    private final UtilMapper utilMapper;
 
-    public PicturePurchaseServiceImpl(PicturePurchaseRepository repository, PicturePurchaseMapper mapper) {
+    public PicturePurchaseServiceImpl(PicturePurchaseRepository repository, PicturePurchaseMapper mapper, UtilMapper utilMapper) {
         this.repository = repository;
         this.mapper = mapper;
+        this.utilMapper = utilMapper;
     }
 
     @Override
@@ -82,16 +85,16 @@ public class PicturePurchaseServiceImpl implements PicturePurchaseService {
     }
 
     @Override
-    public List<PicturePurchaseDTO> findByStatus(StatusEnum status) {
-        return repository.findPaintingPurchasesByStatus(status)
+    public List<PicturePurchaseDTO> findByStatus(StatusForm status) {
+        return repository.findPaintingPurchasesByStatus(utilMapper.fromStatusFormToStatus(status))
                 .stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<PicturePurchaseDTO> findByOrderDate(LocalDate date) {
-        return repository.findPaintingPurchasesByCreatedAt(date)
+    public List<PicturePurchaseDTO> findByOrderDate(DateForm date) {
+        return repository.findPaintingPurchasesByCreatedAt(utilMapper.fromDateFormToDate(date))
                 .stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());

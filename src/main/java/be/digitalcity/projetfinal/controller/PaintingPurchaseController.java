@@ -2,6 +2,8 @@ package be.digitalcity.projetfinal.controller;
 
 import be.digitalcity.projetfinal.models.dto.PaintingPurchaseDTO;
 import be.digitalcity.projetfinal.models.form.PaintingPurchaseForm;
+import be.digitalcity.projetfinal.models.form.typeForm.DateForm;
+import be.digitalcity.projetfinal.models.form.typeForm.StatusForm;
 import be.digitalcity.projetfinal.services.PaintingPurchaseService;
 import be.digitalcity.projetfinal.util.enums.StatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +40,12 @@ public class PaintingPurchaseController {
     }
 
     @GetMapping("/status")
-    public ResponseEntity<List<PaintingPurchaseDTO>> getByStatus(@Valid @RequestBody StatusEnum status){
+    public ResponseEntity<List<PaintingPurchaseDTO>> getByStatus(@Valid @RequestBody StatusForm status){
         return ResponseEntity.ok(service.findByStatus(status));
     }
 
     @GetMapping("/date")
-    public ResponseEntity<List<PaintingPurchaseDTO>> getByOrderDate(@Valid @RequestBody LocalDate date){
+    public ResponseEntity<List<PaintingPurchaseDTO>> getByOrderDate(@Valid @RequestBody DateForm date){
         return ResponseEntity.ok(service.findByOrderDate(date));
     }
 

@@ -1,5 +1,7 @@
 package be.digitalcity.projetfinal.services;
 
+import be.digitalcity.projetfinal.models.form.typeForm.DateForm;
+import be.digitalcity.projetfinal.models.form.typeForm.StatusForm;
 import be.digitalcity.projetfinal.util.enums.StatusEnum;
 
 import java.time.LocalDate;
@@ -18,7 +20,7 @@ public interface OrderService<DTO, FORM> {
 
     List<DTO> findByUser(Long id);
 
-    List<DTO> findByStatus(StatusEnum status);
+    List<DTO> findByStatus(StatusForm status);
 
-    List<DTO> findByOrderDate(LocalDate date);
+    List<DTO> findByOrderDate(DateForm date);
 }

@@ -1,14 +1,15 @@
 package be.digitalcity.projetfinal.services.impl;
 
 import be.digitalcity.projetfinal.mappers.ReservationMapper;
+import be.digitalcity.projetfinal.mappers.UtilMapper;
 import be.digitalcity.projetfinal.models.dto.ReservationDTO;
 import be.digitalcity.projetfinal.models.entity.Reservation;
 import be.digitalcity.projetfinal.models.form.ReservationForm;
+import be.digitalcity.projetfinal.models.form.typeForm.DateForm;
 import be.digitalcity.projetfinal.repository.ReservationRepository;
 import be.digitalcity.projetfinal.services.ReservationService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,10 +17,12 @@ import java.util.stream.Collectors;
 public class ReservationServiceImpl implements ReservationService {
     private final ReservationRepository repository;
     private final ReservationMapper mapper;
+    private final UtilMapper utilMapper;
 
-    public ReservationServiceImpl(ReservationRepository repository, ReservationMapper mapper) {
+    public ReservationServiceImpl(ReservationRepository repository, ReservationMapper mapper, UtilMapper utilMapper) {
         this.repository = repository;
         this.mapper = mapper;
+        this.utilMapper = utilMapper;
     }
 
     @Override
@@ -83,8 +86,8 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public List<ReservationDTO> findByDate(LocalDate date) {
-        return repository.findReservationsByStartDate(date)
+    public List<ReservationDTO> findByDate(DateForm date) {
+        return repository.findReservationsByStartDate(utilMapper.fromDateFormToDate(date))
                 .stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());

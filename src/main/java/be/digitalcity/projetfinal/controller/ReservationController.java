@@ -2,6 +2,7 @@ package be.digitalcity.projetfinal.controller;
 
 import be.digitalcity.projetfinal.models.dto.ReservationDTO;
 import be.digitalcity.projetfinal.models.form.ReservationForm;
+import be.digitalcity.projetfinal.models.form.typeForm.DateForm;
 import be.digitalcity.projetfinal.services.ReservationService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class ReservationController {
     }
 
     @GetMapping("/date")
-    public ResponseEntity<List<ReservationDTO>> getByDate(@RequestBody LocalDate date){
+    public ResponseEntity<List<ReservationDTO>> getByDate(@Valid @RequestBody DateForm date){
         return ResponseEntity.ok(service.findByDate(date));
     }
 
