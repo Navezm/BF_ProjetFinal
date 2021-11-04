@@ -11,10 +11,16 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 @MappedSuperclass
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public abstract class Order extends BaseEntity<Long> {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private StatusEnum status;
+
+    public void setStatus(StatusEnum status) {
+        this.status = status;
+    }
 
     @OneToOne(targetEntity = User.class)
     private User user;

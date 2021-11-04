@@ -2,17 +2,17 @@ package be.digitalcity.projetfinal.models.entity;
 
 import be.digitalcity.projetfinal.models.entity.abstractClass.Order;
 import be.digitalcity.projetfinal.util.enums.StatusEnum;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Data
+@ToString
+@Getter
+@Setter
+@NoArgsConstructor
 public class Reservation extends Order {
     @Column(nullable = false)
     private LocalDate startDate;
@@ -22,12 +22,19 @@ public class Reservation extends Order {
     @ManyToOne(targetEntity = EventCategory.class)
     private EventCategory eventCategory;
 
-    @Override
+    public Reservation(StatusEnum status, User user, LocalDate startDate, LocalDate endDate, EventCategory eventCategory) {
+        super(status, user);
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.eventCategory = eventCategory;
+    }
+
+    @PrePersist
     public void prePersist() {
         this.createdAt = LocalDate.now();
     }
 
-    @Override
+    @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDate.now();
     }

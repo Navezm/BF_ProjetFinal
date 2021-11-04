@@ -3,26 +3,53 @@ package be.digitalcity.projetfinal.controller;
 import be.digitalcity.projetfinal.mappers.UserMapper;
 import be.digitalcity.projetfinal.models.dto.UserDTO;
 import be.digitalcity.projetfinal.models.entity.User;
-import be.digitalcity.projetfinal.models.form.userForm.UserInsertForm;
+import be.digitalcity.projetfinal.models.form.userForm.UserRegisterForm;
+import be.digitalcity.projetfinal.models.form.userForm.UserUpdateForm;
+import be.digitalcity.projetfinal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
+@RequestMapping("user")
 public class UserController {
-//    private final UserService userService;
-//    private final UserMapper userMapper;
-//
-//    @Autowired
-//    public UserController(UserMapper userMapper){
-//        this.userMapper = userMapper;
-//    }
-//
+    private final UserService service;
+    private final UserMapper userMapper;
+
+    @Autowired
+    public UserController(UserService userService, UserMapper userMapper){
+        this.service = userService;
+        this.userMapper = userMapper;
+    }
+
+    @GetMapping({"", "/all"})
+    public ResponseEntity<List<UserDTO>> getAll(){
+        return ResponseEntity.ok(service.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> getOne(@PathVariable Long id){
+        return ResponseEntity.ok(service.getOne(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserRegisterForm form){
+        return ResponseEntity.ok(service.insert(form));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<UserDTO> delete(@PathVariable Long id){
+        return ResponseEntity.ok(service.delete(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserUpdateForm form){
+        return ResponseEntity.ok(service.update(id, form));
+    }
+
 //    @PatchMapping("/user/{id}/roles")
 //    public ResponseEntity<UserDTO> addRoles(@PathVariable() long id, @Valid @RequestBody()UserInsertForm form) {
 //        User user = this.userService.findById(id);
