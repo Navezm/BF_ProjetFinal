@@ -50,6 +50,7 @@ public class PaintingQuotationServiceImpl implements PaintingQuotationService {
     @Override
     public PaintingQuotationDTO delete(Long id) {
         PaintingQuotation toDelete = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The painting quotation doesn't exist"));
 
         toDelete.setActive(false);
@@ -62,6 +63,7 @@ public class PaintingQuotationServiceImpl implements PaintingQuotationService {
     @Override
     public PaintingQuotationDTO update(Long id, PaintingQuotationForm paintingQuotationForm) {
         PaintingQuotation toUpdate = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The painting quotation doesn't exist"));
 
         toUpdate.setColorChoice(paintingQuotationForm.getColorChoice());

@@ -42,6 +42,7 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public GroupDTO delete(Long id) {
         Group toDelete = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The group doesn't exist"));
 
         toDelete.setActive(false);
@@ -54,6 +55,7 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public GroupDTO update(Long id, GroupForm groupForm) {
         Group toUpdate = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The group doesn't exist"));
 
         toUpdate.setName(groupForm.getName());

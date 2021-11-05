@@ -42,6 +42,7 @@ public class EventCategoryServiceImpl implements EventCategoryService {
     @Override
     public EventCategoryDTO delete(Long id) {
         EventCategory toDelete = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The event category doesn't exist"));
 
         toDelete.setActive(false);
@@ -54,6 +55,7 @@ public class EventCategoryServiceImpl implements EventCategoryService {
     @Override
     public EventCategoryDTO update(Long id, EventCategoryForm eventCategoryForm) {
         EventCategory toUpdate = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The event category doesn't exist"));
 
         toUpdate.setName(eventCategoryForm.getName());

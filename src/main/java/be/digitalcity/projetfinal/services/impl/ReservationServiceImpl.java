@@ -52,6 +52,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public ReservationDTO delete(Long id) {
         Reservation toDelete = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The reservation doesn't exist"));
 
         toDelete.setActive(false);
@@ -64,6 +65,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public ReservationDTO update(Long id, ReservationForm reservationForm) {
         Reservation toUpdate = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The reservation doesn't exist"));
 
         toUpdate.setEndDate(reservationForm.getEndDate());

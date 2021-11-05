@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO delete(Long id) {
         User toDelete = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The user doesn't exist"));
 
         toDelete.setActive(false);
@@ -59,6 +60,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO update(Long id, UserUpdateForm userUpdateForm) {
         User toUpdate = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The user doesn't exist"));
 
         toUpdate.setAddress(addressMapper.fromFormToEntity(userUpdateForm.getAddress()));

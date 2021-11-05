@@ -45,6 +45,7 @@ public class PaintingServiceImpl implements PaintingService {
     @Override
     public PaintingDTO delete(Long id) {
         Painting toDelete = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The painting doesn't exist"));
 
         toDelete.setActive(false);
@@ -57,6 +58,7 @@ public class PaintingServiceImpl implements PaintingService {
     @Override
     public PaintingDTO update(Long id, PaintingForm paintingForm) {
         Painting toUpdate = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The painting doesn't exist"));
 
         toUpdate.setPrice(paintingForm.getPrice());

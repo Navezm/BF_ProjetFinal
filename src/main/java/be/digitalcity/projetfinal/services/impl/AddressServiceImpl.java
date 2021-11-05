@@ -44,6 +44,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public AddressDTO delete(Long id) {
         Address toDelete = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("This address does not exist"));
 
         toDelete.setActive(false);
@@ -56,6 +57,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public AddressDTO update(Long id, AddressForm addressForm) {
         Address toUpdate = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("This address does not exist"));
 
         toUpdate.setStreet(addressForm.getStreet());

@@ -42,6 +42,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public RoleDTO delete(Long id) {
         Role toDelete = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The role doesn't exist"));
 
         toDelete.setActive(false);
@@ -54,6 +55,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public RoleDTO update(Long id, RoleForm roleForm) {
         Role toUpdate = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The role doesn't exist"));
 
         toUpdate.setName(roleForm.getName());

@@ -45,6 +45,7 @@ public class PictureServiceImpl implements PictureService {
     @Override
     public PictureDTO delete(Long id) {
         Picture toDelete = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The picture doesn't exist"));
 
         toDelete.setActive(false);
@@ -57,6 +58,7 @@ public class PictureServiceImpl implements PictureService {
     @Override
     public PictureDTO update(Long id, PictureForm pictureForm) {
         Picture toUpdate = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The picture doesn't exist"));
 
         toUpdate.setAvailable(pictureForm.isAvailable());

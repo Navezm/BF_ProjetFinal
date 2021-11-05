@@ -50,6 +50,7 @@ public class PicturePurchaseServiceImpl implements PicturePurchaseService {
     @Override
     public PicturePurchaseDTO delete(Long id) {
         PicturePurchase toDelete = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The picture purchase doesn't exist"));
 
         toDelete.setActive(false);
@@ -62,6 +63,7 @@ public class PicturePurchaseServiceImpl implements PicturePurchaseService {
     @Override
     public PicturePurchaseDTO update(Long id, PicturePurchaseForm picturePurchaseForm) {
         PicturePurchase toUpdate = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The picture purchase doesn't exist"));
 
         toUpdate.setPictures(picturePurchaseForm.getPictures());

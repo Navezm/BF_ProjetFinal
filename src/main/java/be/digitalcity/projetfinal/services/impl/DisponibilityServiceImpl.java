@@ -42,6 +42,7 @@ public class DisponibilityServiceImpl implements DisponibilityService {
     @Override
     public DisponibilityDTO delete(Long id) {
         Disponibility toDelete = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The disponibility doesn't exist"));
 
         toDelete.setActive(false);
@@ -54,6 +55,7 @@ public class DisponibilityServiceImpl implements DisponibilityService {
     @Override
     public DisponibilityDTO update(Long id, DisponibilityForm disponibilityForm) {
         Disponibility toUpdate = repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The disponibility doesn't exist"));
 
         toUpdate.setStatus(disponibilityForm.isStatus());
