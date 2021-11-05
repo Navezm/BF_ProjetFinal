@@ -11,9 +11,12 @@ public class PaintingTypeMapper implements BaseMapper<PaintingTypeDTO, PaintingT
     public PaintingType toEntity(PaintingTypeDTO dto) {
         if (dto == null) return null;
 
-        return new PaintingType(
+        PaintingType paintingType = new PaintingType(
                 dto.getName()
         );
+        paintingType.setId(dto.getId());
+
+        return paintingType;
     }
 
     @Override

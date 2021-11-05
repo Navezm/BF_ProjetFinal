@@ -11,9 +11,12 @@ public class EventCategoryMapper implements BaseMapper<EventCategoryDTO, EventCa
     public EventCategory toEntity(EventCategoryDTO dto) {
         if (dto == null) return null;
 
-        return new EventCategory(
+        EventCategory eventCategory = new EventCategory(
                 dto.getName()
         );
+        eventCategory.setId(dto.getId());
+
+        return eventCategory;
     }
 
     @Override

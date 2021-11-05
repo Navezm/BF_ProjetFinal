@@ -28,6 +28,7 @@ public class PaintingQuotationMapper implements BaseMapper<PaintingQuotationDTO,
         paintingQuotation.setPaintingType(paintingTypeMapper.toEntity(dto.getPaintingType()));
         paintingQuotation.setFormat(dto.getFormat());
         paintingQuotation.setMessage(dto.getMessage());
+        paintingQuotation.setId(dto.getId());
 
         return paintingQuotation;
     }

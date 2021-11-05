@@ -11,9 +11,12 @@ public class RoleMapper implements BaseMapper<RoleDTO, RoleForm, Role>{
     public Role toEntity(RoleDTO dto) {
         if (dto == null) return null;
 
-        return new Role(
+        Role role = new Role(
                 dto.getName()
         );
+        role.setId(dto.getId());
+
+        return role;
     }
 
     @Override

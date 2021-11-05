@@ -25,6 +25,7 @@ public class UserMapper implements BaseMapper<UserDTO, UserRegisterForm, User> {
 
         User user = new User();
 
+        user.setId(dto.getId());
         user.setAddress(addressMapper.toEntity(dto.getAddress()));
         user.setEmail(dto.getEmail());
         user.setUsername(dto.getUsername());
@@ -32,6 +33,10 @@ public class UserMapper implements BaseMapper<UserDTO, UserRegisterForm, User> {
         user.setRoles(dto.getRoles().stream()
                 .map(roleMapper::toEntity)
                 .collect(Collectors.toList()));
+        user.setAccountNonExpired(dto.isAccountNonExpired());
+        user.setAccountNonLocked(dto.isAccountNonLocked());
+        user.setCreditialsNonExpired(dto.isCreditialsNonExpired());
+        user.setEnabled(dto.isEnabled());
 
         return user;
     }
@@ -50,6 +55,10 @@ public class UserMapper implements BaseMapper<UserDTO, UserRegisterForm, User> {
                 .map(roleMapper::toDto)
                 .collect(Collectors.toList()));
         userDTO.setId(entity.getId());
+        userDTO.setAccountNonExpired(entity.isAccountNonExpired());
+        userDTO.setAccountNonLocked(entity.isAccountNonLocked());
+        userDTO.setCreditialsNonExpired(entity.isCreditialsNonExpired());
+        userDTO.setEnabled(entity.isEnabled());
 
         return userDTO;
     }
@@ -67,12 +76,4 @@ public class UserMapper implements BaseMapper<UserDTO, UserRegisterForm, User> {
 
         return user;
     }
-
-//    public User fromFormToEntity(UserInsertForm form){
-//        if (form == null) return null;
-//
-//        User user = new User();
-//
-//        user.setRoles(form.getRoles());
-//    }
 }

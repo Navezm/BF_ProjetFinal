@@ -19,13 +19,16 @@ public class GroupMapper implements BaseMapper<GroupDTO, GroupForm, Group> {
     public Group toEntity(GroupDTO dto) {
         if (dto == null) return null;
 
-        return new Group(
+        Group group = new Group(
                 dto.getName(),
                 dto.getRoleList()
                         .stream()
                         .map(roleMapper::toEntity)
                         .collect(Collectors.toSet())
         );
+        group.setId(dto.getId());
+
+        return group;
     }
 
     @Override

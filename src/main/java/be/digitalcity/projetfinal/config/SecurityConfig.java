@@ -17,9 +17,5 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder(){ return new BCryptPasswordEncoder(); }
-
-
 
 }

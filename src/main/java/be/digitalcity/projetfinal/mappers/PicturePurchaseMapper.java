@@ -28,6 +28,7 @@ public class PicturePurchaseMapper implements BaseMapper<PicturePurchaseDTO, Pic
                 .collect(Collectors.toList()));
         picturePurchase.setStatus(dto.getStatus());
         picturePurchase.setUser(userMapper.toEntity(dto.getUser()));
+        picturePurchase.setId(dto.getId());
 
         return picturePurchase;
     }

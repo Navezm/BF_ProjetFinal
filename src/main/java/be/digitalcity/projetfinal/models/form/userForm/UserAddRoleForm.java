@@ -18,7 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @Validated
-public class UserInsertForm {
+public class UserAddRoleForm {
     @Length(min = 1)
     private List<Long> roles;
 }

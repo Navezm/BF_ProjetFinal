@@ -12,12 +12,15 @@ public class AddressMapper implements BaseMapper<AddressDTO, AddressForm, Addres
         if (dto == null)
             return null;
 
-        return new Address(
+        Address address = new Address(
                 dto.getStreet(),
                 dto.getNumber(),
                 dto.getCity(),
                 dto.getPostCode()
         );
+        address.setId(dto.getId());
+
+        return address;
     }
 
     @Override

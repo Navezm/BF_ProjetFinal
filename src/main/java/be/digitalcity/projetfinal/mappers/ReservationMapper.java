@@ -26,6 +26,7 @@ public class ReservationMapper implements BaseMapper<ReservationDTO, Reservation
         reservation.setEndDate(dto.getEndDate());
         reservation.setStartDate(dto.getStartDate());
         reservation.setEventCategory(eventCategoryMapper.toEntity(dto.getEventCategory()));
+        reservation.setId(dto.getId());
 
         return reservation;
     }

@@ -32,6 +32,7 @@ public class PaintingPurchaseMapper implements BaseMapper<PaintingPurchaseDTO, P
                 .collect(Collectors.toList()));
         paintingPurchase.setAddress(addressMapper.toEntity(dto.getAddress()));
         paintingPurchase.setUser(userMapper.toEntity(dto.getUser()));
+        paintingPurchase.setId(dto.getId());
 
         return paintingPurchase;
     }

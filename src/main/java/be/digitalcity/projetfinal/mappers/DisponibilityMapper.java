@@ -11,10 +11,13 @@ public class DisponibilityMapper implements BaseMapper<DisponibilityDTO, Disponi
     public Disponibility toEntity(DisponibilityDTO dto) {
         if (dto == null) return null;
 
-        return new Disponibility(
+        Disponibility disponibility = new Disponibility(
                 dto.getDate(),
                 dto.isStatus()
         );
+        disponibility.setId(dto.getId());
+
+        return disponibility;
     }
 
     @Override

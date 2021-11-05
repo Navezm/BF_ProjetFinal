@@ -5,11 +5,12 @@ import be.digitalcity.projetfinal.mappers.UserMapper;
 import be.digitalcity.projetfinal.models.dto.UserDTO;
 import be.digitalcity.projetfinal.models.entity.User;
 import be.digitalcity.projetfinal.models.entity.abstractClass.BaseEntity;
-import be.digitalcity.projetfinal.models.form.userForm.UserInsertForm;
 import be.digitalcity.projetfinal.models.form.userForm.UserRegisterForm;
 import be.digitalcity.projetfinal.models.form.userForm.UserUpdateForm;
 import be.digitalcity.projetfinal.repository.UserRepository;
 import be.digitalcity.projetfinal.services.UserService;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -91,5 +92,11 @@ public class UserServiceImpl implements UserService {
                 .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return repository.findUserByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("The user with username {"+username+"} couldn't be found."));
     }
 }

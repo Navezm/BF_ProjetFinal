@@ -3,6 +3,7 @@ package be.digitalcity.projetfinal.controller;
 import be.digitalcity.projetfinal.mappers.UserMapper;
 import be.digitalcity.projetfinal.models.dto.UserDTO;
 import be.digitalcity.projetfinal.models.entity.User;
+import be.digitalcity.projetfinal.models.form.userForm.UserAddRoleForm;
 import be.digitalcity.projetfinal.models.form.userForm.UserRegisterForm;
 import be.digitalcity.projetfinal.models.form.userForm.UserUpdateForm;
 import be.digitalcity.projetfinal.services.UserService;
@@ -55,12 +56,13 @@ public class UserController {
         return ResponseEntity.ok(service.update(id, form));
     }
 
-//    @PatchMapping("/user/{id}/roles")
-//    public ResponseEntity<UserDTO> addRoles(@PathVariable() long id, @Valid @RequestBody()UserInsertForm form) {
-//        User user = this.userService.findById(id);
-//
+    @PatchMapping("/user/{id}/roles")
+    public ResponseEntity<UserDTO> addRoles(@PathVariable() long id, @Valid @RequestBody UserAddRoleForm form) {
+        User user = userMapper.toEntity(this.service.getOne(id));
+
 //        this.userService.addRoles(user, form.getRoles());
 //
 //        return ResponseEntity.ok(userMapper.mapFromEntity(user));
-//    }
+        return null;
+    }
 }

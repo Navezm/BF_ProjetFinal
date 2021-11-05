@@ -25,6 +25,7 @@ public class PictureMapper implements BaseMapper<PictureDTO, PictureForm, Pictur
         picture.setEventCategory(eventCategoryMapper.toEntity(dto.getEventCategory()));
         picture.setPrice(dto.getPrice());
         picture.setSrc(dto.getSrc());
+        picture.setId(dto.getId());
 
         return picture;
     }
