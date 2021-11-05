@@ -10,11 +10,11 @@ import java.time.Instant;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
-public class ErrorDTO {
+public class ExceptionDTO {
 
     private String message;
     private Instant timestamp = Instant.now();
 
-    public ErrorDTO(String message){ this.message = message; }
+    public ExceptionDTO(String message){ this.message = message; }
 
 }

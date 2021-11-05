@@ -4,6 +4,7 @@ import be.digitalcity.projetfinal.mappers.AddressMapper;
 import be.digitalcity.projetfinal.mappers.UserMapper;
 import be.digitalcity.projetfinal.models.dto.UserDTO;
 import be.digitalcity.projetfinal.models.entity.User;
+import be.digitalcity.projetfinal.models.entity.abstractClass.BaseEntity;
 import be.digitalcity.projetfinal.models.form.userForm.UserInsertForm;
 import be.digitalcity.projetfinal.models.form.userForm.UserRegisterForm;
 import be.digitalcity.projetfinal.models.form.userForm.UserUpdateForm;
@@ -30,6 +31,7 @@ public class UserServiceImpl implements UserService {
     public List<UserDTO> findAll() {
         return repository.findAll()
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -37,6 +39,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO getOne(Long id) {
         return repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("The user doesn't exist"));
     }
@@ -83,16 +86,8 @@ public class UserServiceImpl implements UserService {
     public List<UserDTO> findByGroup(Long id) {
         return repository.findUsersByGroupId(id)
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
-
-//    @Override
-//    public UserDTO insert(UserInsertForm userInsertForm) {
-//        User toInsert = mapper.fromFormToEntity(userInsertForm);
-//
-//        repository.save(toInsert);
-//
-//        return mapper.toDto(toInsert);
-//    }
 }

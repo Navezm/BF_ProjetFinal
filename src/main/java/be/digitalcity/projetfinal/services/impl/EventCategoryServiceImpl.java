@@ -3,6 +3,7 @@ package be.digitalcity.projetfinal.services.impl;
 import be.digitalcity.projetfinal.mappers.EventCategoryMapper;
 import be.digitalcity.projetfinal.models.dto.EventCategoryDTO;
 import be.digitalcity.projetfinal.models.entity.EventCategory;
+import be.digitalcity.projetfinal.models.entity.abstractClass.BaseEntity;
 import be.digitalcity.projetfinal.models.form.EventCategoryForm;
 import be.digitalcity.projetfinal.repository.EventCategoryRepository;
 import be.digitalcity.projetfinal.services.EventCategoryService;
@@ -25,6 +26,7 @@ public class EventCategoryServiceImpl implements EventCategoryService {
     public List<EventCategoryDTO> findAll() {
         return repository.findAll()
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -32,6 +34,7 @@ public class EventCategoryServiceImpl implements EventCategoryService {
     @Override
     public EventCategoryDTO getOne(Long id) {
         return repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("The event category doesn't exist"));
     }

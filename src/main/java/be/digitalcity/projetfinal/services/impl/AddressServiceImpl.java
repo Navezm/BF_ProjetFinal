@@ -3,6 +3,7 @@ package be.digitalcity.projetfinal.services.impl;
 import be.digitalcity.projetfinal.mappers.AddressMapper;
 import be.digitalcity.projetfinal.models.dto.AddressDTO;
 import be.digitalcity.projetfinal.models.entity.Address;
+import be.digitalcity.projetfinal.models.entity.abstractClass.BaseEntity;
 import be.digitalcity.projetfinal.models.form.AddressForm;
 import be.digitalcity.projetfinal.repository.AddressRepository;
 import be.digitalcity.projetfinal.services.AddressService;
@@ -27,6 +28,7 @@ public class AddressServiceImpl implements AddressService {
     public List<AddressDTO> findAll() {
         return repository.findAll()
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -34,6 +36,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public AddressDTO getOne(Long id) {
         return repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("This address does not exist"));
     }

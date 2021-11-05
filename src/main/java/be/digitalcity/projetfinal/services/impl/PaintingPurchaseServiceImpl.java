@@ -4,11 +4,13 @@ import be.digitalcity.projetfinal.mappers.PaintingPurchaseMapper;
 import be.digitalcity.projetfinal.mappers.UtilMapper;
 import be.digitalcity.projetfinal.models.dto.PaintingPurchaseDTO;
 import be.digitalcity.projetfinal.models.entity.PaintingPurchase;
+import be.digitalcity.projetfinal.models.entity.abstractClass.BaseEntity;
 import be.digitalcity.projetfinal.models.form.PaintingPurchaseForm;
 import be.digitalcity.projetfinal.models.form.typeForm.DateForm;
 import be.digitalcity.projetfinal.models.form.typeForm.StatusForm;
 import be.digitalcity.projetfinal.repository.PaintingPurchaseRepository;
 import be.digitalcity.projetfinal.services.PaintingPurchaseService;
+import be.digitalcity.projetfinal.services.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,17 +21,20 @@ public class PaintingPurchaseServiceImpl implements PaintingPurchaseService {
     private final PaintingPurchaseRepository repository;
     private final PaintingPurchaseMapper mapper;
     private final UtilMapper utilMapper;
+    private final UserService userService;
 
-    public PaintingPurchaseServiceImpl(PaintingPurchaseRepository repository, PaintingPurchaseMapper mapper, UtilMapper utilMapper) {
+    public PaintingPurchaseServiceImpl(PaintingPurchaseRepository repository, PaintingPurchaseMapper mapper, UtilMapper utilMapper, UserService userService) {
         this.repository = repository;
         this.mapper = mapper;
         this.utilMapper = utilMapper;
+        this.userService = userService;
     }
 
     @Override
     public List<PaintingPurchaseDTO> findAll() {
         return repository.findAll()
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -37,6 +42,7 @@ public class PaintingPurchaseServiceImpl implements PaintingPurchaseService {
     @Override
     public PaintingPurchaseDTO getOne(Long id) {
         return repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("The painting purchase doesn't exist"));
     }
@@ -79,8 +85,11 @@ public class PaintingPurchaseServiceImpl implements PaintingPurchaseService {
 
     @Override
     public List<PaintingPurchaseDTO> findByUser(Long id) {
+        this.userService.getOne(id);
+
         return repository.findPaintingPurchasesByUserId(id)
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -89,6 +98,7 @@ public class PaintingPurchaseServiceImpl implements PaintingPurchaseService {
     public List<PaintingPurchaseDTO> findByStatus(StatusForm status) {
         return repository.findPaintingPurchasesByStatus(utilMapper.fromStatusFormToStatus(status))
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -97,6 +107,7 @@ public class PaintingPurchaseServiceImpl implements PaintingPurchaseService {
     public List<PaintingPurchaseDTO> findByOrderDate(DateForm date) {
         return repository.findPaintingPurchasesByCreatedAt(utilMapper.fromDateFormToDate(date))
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }

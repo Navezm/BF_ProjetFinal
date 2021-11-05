@@ -4,10 +4,13 @@ import be.digitalcity.projetfinal.mappers.ReservationMapper;
 import be.digitalcity.projetfinal.mappers.UtilMapper;
 import be.digitalcity.projetfinal.models.dto.ReservationDTO;
 import be.digitalcity.projetfinal.models.entity.Reservation;
+import be.digitalcity.projetfinal.models.entity.abstractClass.BaseEntity;
 import be.digitalcity.projetfinal.models.form.ReservationForm;
 import be.digitalcity.projetfinal.models.form.typeForm.DateForm;
 import be.digitalcity.projetfinal.repository.ReservationRepository;
+import be.digitalcity.projetfinal.services.EventCategoryService;
 import be.digitalcity.projetfinal.services.ReservationService;
+import be.digitalcity.projetfinal.services.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,17 +21,22 @@ public class ReservationServiceImpl implements ReservationService {
     private final ReservationRepository repository;
     private final ReservationMapper mapper;
     private final UtilMapper utilMapper;
+    private final UserService userService;
+    private final EventCategoryService eventCategoryService;
 
-    public ReservationServiceImpl(ReservationRepository repository, ReservationMapper mapper, UtilMapper utilMapper) {
+    public ReservationServiceImpl(ReservationRepository repository, ReservationMapper mapper, UtilMapper utilMapper, UserService userService, EventCategoryService eventCategoryService) {
         this.repository = repository;
         this.mapper = mapper;
         this.utilMapper = utilMapper;
+        this.userService = userService;
+        this.eventCategoryService = eventCategoryService;
     }
 
     @Override
     public List<ReservationDTO> findAll() {
         return repository.findAll()
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -36,6 +44,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public ReservationDTO getOne(Long id) {
         return repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("The reservation doesn't exist"));
     }
@@ -79,8 +88,11 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public List<ReservationDTO> findByUser(Long id) {
+        this.userService.getOne(id);
+
         return repository.findReservationsByUserId(id)
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -89,14 +101,18 @@ public class ReservationServiceImpl implements ReservationService {
     public List<ReservationDTO> findByDate(DateForm date) {
         return repository.findReservationsByStartDate(utilMapper.fromDateFormToDate(date))
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<ReservationDTO> findByEventType(Long id) {
+        this.eventCategoryService.getOne(id);
+
         return repository.findReservationsByEventCategoryId(id)
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }

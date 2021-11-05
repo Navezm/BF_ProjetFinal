@@ -1,12 +1,12 @@
 package be.digitalcity.projetfinal.services.impl;
 
 import be.digitalcity.projetfinal.mappers.PictureMapper;
-import be.digitalcity.projetfinal.models.dto.PaintingDTO;
-import be.digitalcity.projetfinal.models.dto.PaintingTypeDTO;
 import be.digitalcity.projetfinal.models.dto.PictureDTO;
 import be.digitalcity.projetfinal.models.entity.Picture;
+import be.digitalcity.projetfinal.models.entity.abstractClass.BaseEntity;
 import be.digitalcity.projetfinal.models.form.PictureForm;
 import be.digitalcity.projetfinal.repository.PictureRepository;
+import be.digitalcity.projetfinal.services.EventCategoryService;
 import be.digitalcity.projetfinal.services.PictureService;
 import org.springframework.stereotype.Service;
 
@@ -17,16 +17,19 @@ import java.util.stream.Collectors;
 public class PictureServiceImpl implements PictureService {
     private final PictureRepository repository;
     private final PictureMapper mapper;
+    private final EventCategoryService eventCategoryService;
 
-    public PictureServiceImpl(PictureRepository repository, PictureMapper mapper) {
+    public PictureServiceImpl(PictureRepository repository, PictureMapper mapper, EventCategoryService eventCategoryService) {
         this.repository = repository;
         this.mapper = mapper;
+        this.eventCategoryService = eventCategoryService;
     }
 
     @Override
     public List<PictureDTO> findAll() {
         return repository.findAll()
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -34,6 +37,7 @@ public class PictureServiceImpl implements PictureService {
     @Override
     public PictureDTO getOne(Long id) {
         return repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("The picture doesn't exist"));
     }
@@ -78,8 +82,11 @@ public class PictureServiceImpl implements PictureService {
 
     @Override
     public List<PictureDTO> findByType(Long id) {
+        this.eventCategoryService.getOne(id);
+
         return repository.findByType(id)
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -88,6 +95,7 @@ public class PictureServiceImpl implements PictureService {
     public List<PictureDTO> findByAvailability() {
         return repository.findByAvailibility()
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }

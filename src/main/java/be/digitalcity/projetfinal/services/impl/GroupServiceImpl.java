@@ -3,6 +3,7 @@ package be.digitalcity.projetfinal.services.impl;
 import be.digitalcity.projetfinal.mappers.GroupMapper;
 import be.digitalcity.projetfinal.models.dto.GroupDTO;
 import be.digitalcity.projetfinal.models.entity.Group;
+import be.digitalcity.projetfinal.models.entity.abstractClass.BaseEntity;
 import be.digitalcity.projetfinal.models.form.GroupForm;
 import be.digitalcity.projetfinal.repository.GroupRepository;
 import be.digitalcity.projetfinal.services.GroupService;
@@ -25,6 +26,7 @@ public class GroupServiceImpl implements GroupService {
     public List<GroupDTO> findAll() {
         return repository.findAll()
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -32,6 +34,7 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public GroupDTO getOne(Long id) {
         return repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("The group doesn't exist"));
     }

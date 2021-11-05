@@ -3,6 +3,7 @@ package be.digitalcity.projetfinal.services.impl;
 import be.digitalcity.projetfinal.mappers.DisponibilityMapper;
 import be.digitalcity.projetfinal.models.dto.DisponibilityDTO;
 import be.digitalcity.projetfinal.models.entity.Disponibility;
+import be.digitalcity.projetfinal.models.entity.abstractClass.BaseEntity;
 import be.digitalcity.projetfinal.models.form.DisponibilityForm;
 import be.digitalcity.projetfinal.repository.DisponibilityRepository;
 import be.digitalcity.projetfinal.services.DisponibilityService;
@@ -25,6 +26,7 @@ public class DisponibilityServiceImpl implements DisponibilityService {
     public List<DisponibilityDTO> findAll() {
         return repository.findAll()
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -32,6 +34,7 @@ public class DisponibilityServiceImpl implements DisponibilityService {
     @Override
     public DisponibilityDTO getOne(Long id) {
         return repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("The disponibility doesn't exist"));
     }

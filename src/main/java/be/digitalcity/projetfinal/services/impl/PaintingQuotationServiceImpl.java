@@ -4,11 +4,13 @@ import be.digitalcity.projetfinal.mappers.PaintingQuotationMapper;
 import be.digitalcity.projetfinal.mappers.UtilMapper;
 import be.digitalcity.projetfinal.models.dto.PaintingQuotationDTO;
 import be.digitalcity.projetfinal.models.entity.PaintingQuotation;
+import be.digitalcity.projetfinal.models.entity.abstractClass.BaseEntity;
 import be.digitalcity.projetfinal.models.form.PaintingQuotationForm;
 import be.digitalcity.projetfinal.models.form.typeForm.DateForm;
 import be.digitalcity.projetfinal.models.form.typeForm.StatusForm;
 import be.digitalcity.projetfinal.repository.PaintingQuotationRepository;
 import be.digitalcity.projetfinal.services.PaintingQuotationService;
+import be.digitalcity.projetfinal.services.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,17 +21,20 @@ public class PaintingQuotationServiceImpl implements PaintingQuotationService {
     private final PaintingQuotationRepository repository;
     private final PaintingQuotationMapper mapper;
     private final UtilMapper utilMapper;
+    private final UserService userService;
 
-    public PaintingQuotationServiceImpl(PaintingQuotationRepository repository, PaintingQuotationMapper mapper, UtilMapper utilMapper) {
+    public PaintingQuotationServiceImpl(PaintingQuotationRepository repository, PaintingQuotationMapper mapper, UtilMapper utilMapper, UserService userService) {
         this.repository = repository;
         this.mapper = mapper;
         this.utilMapper = utilMapper;
+        this.userService = userService;
     }
 
     @Override
     public List<PaintingQuotationDTO> findAll() {
         return repository.findAll()
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -37,6 +42,7 @@ public class PaintingQuotationServiceImpl implements PaintingQuotationService {
     @Override
     public PaintingQuotationDTO getOne(Long id) {
         return repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("The painting quotation doesn't exist"));
     }
@@ -81,8 +87,11 @@ public class PaintingQuotationServiceImpl implements PaintingQuotationService {
 
     @Override
     public List<PaintingQuotationDTO> findByUser(Long id) {
+        this.userService.getOne(id);
+
         return repository.findPaintingPurchasesByUserId(id)
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -91,6 +100,7 @@ public class PaintingQuotationServiceImpl implements PaintingQuotationService {
     public List<PaintingQuotationDTO> findByStatus(StatusForm status) {
         return repository.findPaintingPurchasesByStatus(utilMapper.fromStatusFormToStatus(status))
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -99,6 +109,7 @@ public class PaintingQuotationServiceImpl implements PaintingQuotationService {
     public List<PaintingQuotationDTO> findByOrderDate(DateForm date) {
         return repository.findPaintingPurchasesByCreatedAt(utilMapper.fromDateFormToDate(date))
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }

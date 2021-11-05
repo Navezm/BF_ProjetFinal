@@ -3,6 +3,7 @@ package be.digitalcity.projetfinal.services.impl;
 import be.digitalcity.projetfinal.mappers.PaintingTypeMapper;
 import be.digitalcity.projetfinal.models.dto.PaintingTypeDTO;
 import be.digitalcity.projetfinal.models.entity.PaintingType;
+import be.digitalcity.projetfinal.models.entity.abstractClass.BaseEntity;
 import be.digitalcity.projetfinal.models.form.PaintingTypeForm;
 import be.digitalcity.projetfinal.repository.PaintingTypeRepository;
 import be.digitalcity.projetfinal.services.PaintingTypeService;
@@ -25,6 +26,7 @@ public class PaintingTypeServiceImpl implements PaintingTypeService {
     public List<PaintingTypeDTO> findAll() {
         return repository.findAll()
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -32,6 +34,7 @@ public class PaintingTypeServiceImpl implements PaintingTypeService {
     @Override
     public PaintingTypeDTO getOne(Long id) {
         return repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("The painting type doesn't exist"));
     }

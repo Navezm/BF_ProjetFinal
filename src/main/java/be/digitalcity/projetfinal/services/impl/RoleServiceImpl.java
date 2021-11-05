@@ -3,6 +3,7 @@ package be.digitalcity.projetfinal.services.impl;
 import be.digitalcity.projetfinal.mappers.RoleMapper;
 import be.digitalcity.projetfinal.models.dto.RoleDTO;
 import be.digitalcity.projetfinal.models.entity.Role;
+import be.digitalcity.projetfinal.models.entity.abstractClass.BaseEntity;
 import be.digitalcity.projetfinal.models.form.RoleForm;
 import be.digitalcity.projetfinal.repository.RoleRepository;
 import be.digitalcity.projetfinal.services.RoleService;
@@ -25,6 +26,7 @@ public class RoleServiceImpl implements RoleService {
     public List<RoleDTO> findAll() {
         return repository.findAll()
                 .stream()
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -32,6 +34,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public RoleDTO getOne(Long id) {
         return repository.findById(id)
+                .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("The role doesn't exist"));
     }
