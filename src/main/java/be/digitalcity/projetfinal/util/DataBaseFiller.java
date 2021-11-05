@@ -98,9 +98,9 @@ public class DataBaseFiller implements InitializingBean {
 
 
         List<User> userList = List.of(
-                new User("martin", "test123456", "m@gmail.com", List.of(roleList.get(0)), groupList.get(0), addressList.get(0)),
-                new User("laetitia", "test123456", "l@gmail.com", List.of(roleList.get(3), roleList.get(4)), groupList.get(1), addressList.get(1)),
-                new User("arnaud", "test123456", "a@gmail.com", List.of(), groupList.get(1), addressList.get(2))
+                new User("martin", "test123456", "m@gmail.com", List.of(roleList.get(0)), groupList.get(0), addressList.get(0), true, true, true, true),
+                new User("laetitia", "test123456", "l@gmail.com", List.of(roleList.get(3), roleList.get(4)), groupList.get(1), addressList.get(1), true, true, true, true),
+                new User("arnaud", "test123456", "a@gmail.com", List.of(), groupList.get(1), addressList.get(2), true, true, true, true)
         );
 
         List<PaintingQuotation> paintingQuotationList = List.of(
@@ -134,18 +134,18 @@ public class DataBaseFiller implements InitializingBean {
                 new Reservation(StatusEnum.ONGOING, userList.get(2), LocalDate.of(2022,12,24), LocalDate.of(2022,12,25), eventCategoryList.get(1))
         );
 
-//        this.addressRepository.saveAll(addressList);
-//        this.disponibilityRepository.saveAll(disponibilityList);
-//        this.eventCategoryRepository.saveAll(eventCategoryList);
-//        this.roleRepository.saveAll(roleList);
-//        this.groupRepository.saveAll(groupList);
-//        this.userRepository.saveAll(userList);
-//        this.paintingTypeRepository.saveAll(paintingTypeList);
-//        this.paintingRepository.saveAll(paintingList);
-//        this.paintingQuotationRepository.saveAll(paintingQuotationList);
-//        this.paintingPurchaseRepository.saveAll(paintingPurchaseList);
-//        this.pictureRepository.saveAll(pictureList);
-//        this.picturePurchaseRepository.saveAll(picturePurchaseList);
-//        this.reservationRepository.saveAll(reservationList);
+        this.addressRepository.saveAll(addressList);
+        this.disponibilityRepository.saveAll(disponibilityList);
+        this.eventCategoryRepository.saveAll(eventCategoryList);
+        this.roleRepository.saveAll(roleList);
+        this.groupRepository.saveAll(groupList);
+        this.userRepository.saveAll(userList);
+        this.paintingTypeRepository.saveAll(paintingTypeList);
+        this.paintingRepository.saveAll(paintingList);
+        this.paintingQuotationRepository.saveAll(paintingQuotationList);
+        this.paintingPurchaseRepository.saveAll(paintingPurchaseList);
+        this.pictureRepository.saveAll(pictureList);
+        this.picturePurchaseRepository.saveAll(picturePurchaseList);
+        this.reservationRepository.saveAll(reservationList);
     }
 }

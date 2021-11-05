@@ -7,6 +7,7 @@ import be.digitalcity.projetfinal.models.entity.abstractClass.BaseEntity;
 import be.digitalcity.projetfinal.models.form.RoleForm;
 import be.digitalcity.projetfinal.repository.RoleRepository;
 import be.digitalcity.projetfinal.services.RoleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
