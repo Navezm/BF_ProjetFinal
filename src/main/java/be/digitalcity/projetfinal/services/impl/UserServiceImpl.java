@@ -11,6 +11,7 @@ import be.digitalcity.projetfinal.repository.UserRepository;
 import be.digitalcity.projetfinal.services.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,11 +22,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository repository;
     private final UserMapper mapper;
     private final AddressMapper addressMapper;
+    private final PasswordEncoder encoder;
 
-    public UserServiceImpl(UserRepository repository, UserMapper mapper, AddressMapper addressMapper) {
+    public UserServiceImpl(UserRepository repository, UserMapper mapper, AddressMapper addressMapper, PasswordEncoder encoder) {
         this.repository = repository;
         this.mapper = mapper;
         this.addressMapper = addressMapper;
+        this.encoder = encoder;
     }
 
     @Override
@@ -67,7 +70,7 @@ public class UserServiceImpl implements UserService {
         toUpdate.setAddress(addressMapper.fromFormToEntity(userUpdateForm.getAddress()));
         toUpdate.setUsername(userUpdateForm.getUsername());
         toUpdate.setEmail(userUpdateForm.getEmail());
-        toUpdate.setPassword(userUpdateForm.getPassword());
+        toUpdate.setPassword(encoder.encode(userUpdateForm.getPassword()));
         toUpdate.setRoles(userUpdateForm.getRoles());
         toUpdate.setGroup(userUpdateForm.getGroup());
 
@@ -79,6 +82,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO insert(UserRegisterForm userRegisterForm) {
         User toInsert = mapper.fromFormToEntity(userRegisterForm);
+
+        toInsert.setAccountNonExpired(true);
+        toInsert.setAccountNonLocked(true);
+        toInsert.setCreditialsNonExpired(true);
+        toInsert.setEnabled(true);
+
+        toInsert.setPassword(encoder.encode(userRegisterForm.getPassword()));
 
         repository.save(toInsert);
 

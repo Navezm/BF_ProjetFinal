@@ -1,6 +1,8 @@
 package be.digitalcity.projetfinal.config.jwt;
 
 import static be.digitalcity.projetfinal.config.SecurityConstants.*;
+
+import be.digitalcity.projetfinal.models.entity.Role;
 import be.digitalcity.projetfinal.models.entity.User;
 import be.digitalcity.projetfinal.services.UserService;
 import com.auth0.jwt.JWT;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtTokenProvider {
@@ -28,7 +31,11 @@ public class JwtTokenProvider {
         String token = JWT.create()
                 .withSubject(user.getUsername())
                 .withExpiresAt( new Date(System.currentTimeMillis() + EXPIRATION_TIME) )
-                .withClaim("roles", user.getRoles())
+                .withClaim("roles", user.getRoles()
+                        .stream()
+                        .map(Role::getName)
+                        .collect(Collectors.toList())
+                )
                 .sign(Algorithm.HMAC512(JWT_KEY));
 
         return TOKEN_PREFIX+token;

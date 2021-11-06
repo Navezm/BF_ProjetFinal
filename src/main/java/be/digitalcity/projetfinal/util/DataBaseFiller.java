@@ -7,6 +7,7 @@ import be.digitalcity.projetfinal.util.enums.FormatEnum;
 import be.digitalcity.projetfinal.util.enums.StatusEnum;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -29,9 +30,10 @@ public class DataBaseFiller implements InitializingBean {
     private final ReservationRepository reservationRepository;
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
+    private final PasswordEncoder encoder;
 
     @Autowired
-    public DataBaseFiller(AddressRepository addressRepository, DisponibilityRepository disponibilityRepository, EventCategoryRepository eventCategoryRepository, GroupRepository groupRepository, PaintingRepository paintingRepository, PaintingQuotationRepository paintingQuotationRepository, PaintingPurchaseRepository paintingPurchaseRepository, PaintingTypeRepository paintingTypeRepository, PicturePurchaseRepository picturePurchaseRepository, PictureRepository pictureRepository, ReservationRepository reservationRepository, RoleRepository roleRepository, UserRepository userRepository) {
+    public DataBaseFiller(AddressRepository addressRepository, DisponibilityRepository disponibilityRepository, EventCategoryRepository eventCategoryRepository, GroupRepository groupRepository, PaintingRepository paintingRepository, PaintingQuotationRepository paintingQuotationRepository, PaintingPurchaseRepository paintingPurchaseRepository, PaintingTypeRepository paintingTypeRepository, PicturePurchaseRepository picturePurchaseRepository, PictureRepository pictureRepository, ReservationRepository reservationRepository, RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder encoder) {
         this.addressRepository = addressRepository;
         this.disponibilityRepository = disponibilityRepository;
         this.eventCategoryRepository = eventCategoryRepository;
@@ -45,6 +47,7 @@ public class DataBaseFiller implements InitializingBean {
         this.reservationRepository = reservationRepository;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
+        this.encoder = encoder;
     }
 
     @Override
@@ -98,9 +101,9 @@ public class DataBaseFiller implements InitializingBean {
 
 
         List<User> userList = List.of(
-                new User("martin", "test123456", "m@gmail.com", List.of(roleList.get(0)), groupList.get(0), addressList.get(0), true, true, true, true),
-                new User("laetitia", "test123456", "l@gmail.com", List.of(roleList.get(3), roleList.get(4)), groupList.get(1), addressList.get(1), true, true, true, true),
-                new User("arnaud", "test123456", "a@gmail.com", List.of(), groupList.get(1), addressList.get(2), true, true, true, true)
+                new User("martin", encoder.encode("test123456"), "m@gmail.com", List.of(roleList.get(0)), groupList.get(0), addressList.get(0), true, true, true, true),
+                new User("laetitia", encoder.encode("test123456"), "l@gmail.com", List.of(roleList.get(3), roleList.get(4)), groupList.get(1), addressList.get(1), true, true, true, true),
+                new User("arnaud", encoder.encode("test123456"), "a@gmail.com", List.of(), groupList.get(1), addressList.get(2), true, true, true, true)
         );
 
         List<PaintingQuotation> paintingQuotationList = List.of(

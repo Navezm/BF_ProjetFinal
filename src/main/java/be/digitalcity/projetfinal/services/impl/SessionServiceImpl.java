@@ -1,6 +1,7 @@
 package be.digitalcity.projetfinal.services.impl;
 
 import be.digitalcity.projetfinal.config.jwt.JwtTokenProvider;
+import be.digitalcity.projetfinal.exceptions.models.ExceptionDTO;
 import be.digitalcity.projetfinal.exceptions.models.UsernamePasswordInvalidException;
 import be.digitalcity.projetfinal.mappers.AddressMapper;
 import be.digitalcity.projetfinal.mappers.UserMapper;
@@ -50,7 +51,9 @@ public class SessionServiceImpl implements SessionService {
 
             return dto;
         } catch (Exception ex){
-            throw new UsernamePasswordInvalidException();
+//            throw new UsernamePasswordInvalidException();
+            throw new IllegalArgumentException(ex.getMessage());
+
         }
     }
 
