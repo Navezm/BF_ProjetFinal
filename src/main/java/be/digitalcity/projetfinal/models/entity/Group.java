@@ -19,7 +19,7 @@ public class Group extends BaseEntity<Long> {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @ManyToMany(targetEntity = Role.class)
+    @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
     @JoinTable(name = "Security_Group_Role")
     private Set<Role> roleList;
 

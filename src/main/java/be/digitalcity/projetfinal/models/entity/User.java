@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -28,10 +29,10 @@ public class User extends BaseEntity<Long> implements UserDetails {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @OneToMany(targetEntity = Role.class)
+    @OneToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
     private List<Role> roles;
 
-    @ManyToOne(targetEntity = Group.class)
+    @ManyToOne(targetEntity = Group.class, fetch = FetchType.EAGER)
     private Group group;
 
     @ManyToOne(targetEntity = Address.class)
@@ -61,10 +62,19 @@ public class User extends BaseEntity<Long> implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream()
-                .map(Role::getName)
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+        return Stream.concat(
+                this.getRoles()
+                        .stream()
+                        .map(Role::getName)
+                        .map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toList()).stream(),
+                this.getGroup()
+                        .getRoleList()
+                        .stream()
+                        .map(Role::getName)
+                        .map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toList()).stream()
+        ).collect(Collectors.toList());
     }
 
     @Override

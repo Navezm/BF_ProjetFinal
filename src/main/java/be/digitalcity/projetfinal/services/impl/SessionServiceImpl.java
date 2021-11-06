@@ -51,9 +51,7 @@ public class SessionServiceImpl implements SessionService {
 
             return dto;
         } catch (Exception ex){
-//            throw new UsernamePasswordInvalidException();
-            throw new IllegalArgumentException(ex.getMessage());
-
+            throw new UsernamePasswordInvalidException();
         }
     }
 

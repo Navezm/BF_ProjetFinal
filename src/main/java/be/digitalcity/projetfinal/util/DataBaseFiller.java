@@ -137,18 +137,18 @@ public class DataBaseFiller implements InitializingBean {
                 new Reservation(StatusEnum.ONGOING, userList.get(2), LocalDate.of(2022,12,24), LocalDate.of(2022,12,25), eventCategoryList.get(1))
         );
 
-        this.addressRepository.saveAll(addressList);
-        this.disponibilityRepository.saveAll(disponibilityList);
-        this.eventCategoryRepository.saveAll(eventCategoryList);
-        this.roleRepository.saveAll(roleList);
-        this.groupRepository.saveAll(groupList);
-        this.userRepository.saveAll(userList);
-        this.paintingTypeRepository.saveAll(paintingTypeList);
-        this.paintingRepository.saveAll(paintingList);
-        this.paintingQuotationRepository.saveAll(paintingQuotationList);
-        this.paintingPurchaseRepository.saveAll(paintingPurchaseList);
-        this.pictureRepository.saveAll(pictureList);
-        this.picturePurchaseRepository.saveAll(picturePurchaseList);
-        this.reservationRepository.saveAll(reservationList);
+//        this.addressRepository.saveAll(addressList);
+//        this.disponibilityRepository.saveAll(disponibilityList);
+//        this.eventCategoryRepository.saveAll(eventCategoryList);
+//        this.roleRepository.saveAll(roleList);
+//        this.groupRepository.saveAll(groupList);
+//        this.userRepository.saveAll(userList);
+//        this.paintingTypeRepository.saveAll(paintingTypeList);
+//        this.paintingRepository.saveAll(paintingList);
+//        this.paintingQuotationRepository.saveAll(paintingQuotationList);
+//        this.paintingPurchaseRepository.saveAll(paintingPurchaseList);
+//        this.pictureRepository.saveAll(pictureList);
+//        this.picturePurchaseRepository.saveAll(picturePurchaseList);
+//        this.reservationRepository.saveAll(reservationList);
     }
 }
