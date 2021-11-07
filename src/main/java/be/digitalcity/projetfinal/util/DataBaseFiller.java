@@ -74,15 +74,54 @@ public class DataBaseFiller implements InitializingBean {
 
         List<Role> roleList = List.of(
                 new Role("reservation"),
-                new Role("buying"),
+                new Role("buy"),
                 new Role("addPainting"),
                 new Role("addPicture"),
-                new Role("shopAccess")
+                new Role("shopAccess"),
+                new Role("makingQuotation"),
+                new Role("deletePainting"),
+                new Role("deletePicture"),
+                new Role("addRole"),
+                new Role("deleteRole"),
+                new Role("treatingQuotation"),
+                new Role("handlePurchase"),
+                new Role("handleReservation"),
+                new Role("handleQuotation"),
+                new Role("deleteUser"),
+                new Role("modifyUser"),
+                new Role("addUser"),
+                new Role("addAvailability")
         );
 
         List<Group> groupList = List.of(
-                new Group("ADMIN", Set.of(roleList.get(1), roleList.get(2), roleList.get(0), roleList.get(3), roleList.get(4))),
-                new Group("USER", Set.of(roleList.get(1), roleList.get(0), roleList.get(4)))
+                new Group("ADMIN", Set.of(
+                        roleList.get(0),
+                        roleList.get(1),
+                        roleList.get(2),
+                        roleList.get(3),
+                        roleList.get(4),
+                        roleList.get(5),
+                        roleList.get(6),
+                        roleList.get(7),
+                        roleList.get(8),
+                        roleList.get(9),
+                        roleList.get(10),
+                        roleList.get(11),
+                        roleList.get(12),
+                        roleList.get(13),
+                        roleList.get(14),
+                        roleList.get(15),
+                        roleList.get(16),
+                        roleList.get(17))
+                ),
+                new Group("USER", Set.of(
+                        roleList.get(0),
+                        roleList.get(1),
+                        roleList.get(2),
+                        roleList.get(3),
+                        roleList.get(4),
+                        roleList.get(5))
+                )
         );
 
         List<PaintingType> paintingTypeList = List.of(
@@ -101,8 +140,8 @@ public class DataBaseFiller implements InitializingBean {
 
 
         List<User> userList = List.of(
-                new User("martin", encoder.encode("test123456"), "m@gmail.com", List.of(roleList.get(0)), groupList.get(0), addressList.get(0), true, true, true, true),
-                new User("laetitia", encoder.encode("test123456"), "l@gmail.com", List.of(roleList.get(3), roleList.get(4)), groupList.get(1), addressList.get(1), true, true, true, true),
+                new User("martin", encoder.encode("test123456"), "m@gmail.com", List.of(), groupList.get(0), addressList.get(0), true, true, true, true),
+                new User("laetitia", encoder.encode("test123456"), "l@gmail.com", List.of(roleList.get(17), roleList.get(4)), groupList.get(1), addressList.get(1), true, true, true, true),
                 new User("arnaud", encoder.encode("test123456"), "a@gmail.com", List.of(), groupList.get(1), addressList.get(2), true, true, true, true)
         );
 

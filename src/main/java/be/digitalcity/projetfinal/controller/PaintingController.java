@@ -5,6 +5,7 @@ import be.digitalcity.projetfinal.models.form.PaintingForm;
 import be.digitalcity.projetfinal.services.PaintingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,6 +22,7 @@ public class PaintingController {
     }
 
     @GetMapping({"", "/all"})
+    @Secured({"shopAccess"})
     public ResponseEntity<List<PaintingDTO>> getAll(){
         return ResponseEntity.ok(service.findAll());
     }
@@ -36,6 +38,7 @@ public class PaintingController {
     }
 
     @GetMapping("/isAvailable")
+    @Secured({"shopAccess"})
     public ResponseEntity<List<PaintingDTO>> getByAvailibility(){
         return ResponseEntity.ok(service.findByAvailability());
     }

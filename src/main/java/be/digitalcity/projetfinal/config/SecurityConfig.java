@@ -37,12 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic();
 
         http.authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/user/**").hasAuthority("addPainting")
-                .antMatchers(HttpMethod.PUT, "/user/**").hasAuthority("addPainting")
-                .antMatchers(HttpMethod.DELETE, "/user/**").hasAuthority("addPainting")
                 .antMatchers(SecurityConstants.LOGIN_URL).permitAll()
                 .antMatchers(SecurityConstants.REGISTER_URL).permitAll()
+
+                .antMatchers(HttpMethod.POST, "/user/**").hasAuthority("addUser")
+                .antMatchers(HttpMethod.PUT, "/user/**").hasAuthority("modifyUser")
+                .antMatchers(HttpMethod.DELETE, "/user/**").hasAuthority("deleteUser")
                 .antMatchers(HttpMethod.GET, "/user/**").permitAll()
+
                 .anyRequest().authenticated();
 
         http.addFilterBefore(new JwtAuthenticationFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);

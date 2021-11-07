@@ -1,6 +1,7 @@
 package be.digitalcity.projetfinal.exceptions;
 
 import be.digitalcity.projetfinal.exceptions.models.ExceptionDTO;
+import be.digitalcity.projetfinal.exceptions.models.UsernamePasswordInvalidException;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
@@ -76,6 +77,17 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ExceptionDTO> handle(DataIntegrityViolationException ex){
+        return ResponseEntity.badRequest()
+                .body(new ExceptionDTO(ex.getMessage()));
+    }
+
+    /**
+     * Handling of the UsernamePasswordInvalidException
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(UsernamePasswordInvalidException.class)
+    public ResponseEntity<ExceptionDTO> handle(UsernamePasswordInvalidException ex){
         return ResponseEntity.badRequest()
                 .body(new ExceptionDTO(ex.getMessage()));
     }
