@@ -31,10 +31,10 @@ public class PictureController {
         return ResponseEntity.ok(service.getOne(id));
     }
 
-    @GetMapping("/type/{id}")
-    public ResponseEntity<List<PictureDTO>> getByType(@PathVariable Long id){
-        return ResponseEntity.ok(service.findByType(id));
-    }
+//    @GetMapping("/type/{id}")
+//    public ResponseEntity<List<PictureDTO>> getByType(@PathVariable Long id){
+//        return ResponseEntity.ok(service.findByType(id));
+//    }
 
     @GetMapping("/isAvailable")
     public ResponseEntity<List<PictureDTO>> getByAvailibility(){

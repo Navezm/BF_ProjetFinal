@@ -34,10 +34,10 @@ public class PaintingPurchaseController {
         return ResponseEntity.ok(service.getOne(id));
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<List<PaintingPurchaseDTO>> getByUser(@PathVariable Long id){
-        return ResponseEntity.ok(service.findByUser(id));
-    }
+//    @GetMapping("/user/{id}")
+//    public ResponseEntity<List<PaintingPurchaseDTO>> getByUser(@PathVariable Long id){
+//        return ResponseEntity.ok(service.findByUser(id));
+//    }
 
     @GetMapping("/status")
     public ResponseEntity<List<PaintingPurchaseDTO>> getByStatus(@Valid @RequestBody StatusForm status){

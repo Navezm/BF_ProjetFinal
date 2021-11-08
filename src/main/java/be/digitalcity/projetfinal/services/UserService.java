@@ -1,6 +1,8 @@
 package be.digitalcity.projetfinal.services;
 
 import be.digitalcity.projetfinal.models.dto.UserDTO;
+import be.digitalcity.projetfinal.models.entity.User;
+import be.digitalcity.projetfinal.models.form.userForm.UserAddRoleForm;
 import be.digitalcity.projetfinal.models.form.userForm.UserRegisterForm;
 import be.digitalcity.projetfinal.models.form.userForm.UserUpdateForm;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,4 +21,6 @@ public interface UserService extends UserDetailsService {
     UserDTO insert(UserRegisterForm userRegisterForm);
 
     List<UserDTO> findByGroup(Long id);
+
+    UserDTO addRoles(User user, UserAddRoleForm userAddRoleForm);
 }

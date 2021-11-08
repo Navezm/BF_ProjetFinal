@@ -2,9 +2,12 @@ package be.digitalcity.projetfinal.models.entity;
 
 import be.digitalcity.projetfinal.models.entity.abstractClass.BaseEntity;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
@@ -15,7 +18,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Security_Group")
-public class Group extends BaseEntity<Long> {
+public class Group extends BaseEntity<Long> implements GrantedAuthority {
     @Column(nullable = false, unique = true)
     private String name;
 
@@ -31,5 +34,10 @@ public class Group extends BaseEntity<Long> {
     @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDate.now();
+    }
+
+    @Override
+    public String getAuthority() {
+        return this.name;
     }
 }

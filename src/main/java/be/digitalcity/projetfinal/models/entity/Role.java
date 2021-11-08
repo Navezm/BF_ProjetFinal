@@ -2,6 +2,7 @@ package be.digitalcity.projetfinal.models.entity;
 
 import be.digitalcity.projetfinal.models.entity.abstractClass.BaseEntity;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Security_Role")
-public class Role extends BaseEntity<Long> {
+public class Role extends BaseEntity<Long> implements GrantedAuthority {
     @Column(nullable = false, unique = true)
     private String name;
 
@@ -26,5 +27,10 @@ public class Role extends BaseEntity<Long> {
     @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDate.now();
+    }
+
+    @Override
+    public String getAuthority() {
+        return this.name;
     }
 }

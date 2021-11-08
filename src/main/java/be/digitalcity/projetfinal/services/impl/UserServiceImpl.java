@@ -1,13 +1,17 @@
 package be.digitalcity.projetfinal.services.impl;
 
 import be.digitalcity.projetfinal.mappers.AddressMapper;
+import be.digitalcity.projetfinal.mappers.RoleMapper;
 import be.digitalcity.projetfinal.mappers.UserMapper;
 import be.digitalcity.projetfinal.models.dto.UserDTO;
+import be.digitalcity.projetfinal.models.entity.Role;
 import be.digitalcity.projetfinal.models.entity.User;
 import be.digitalcity.projetfinal.models.entity.abstractClass.BaseEntity;
+import be.digitalcity.projetfinal.models.form.userForm.UserAddRoleForm;
 import be.digitalcity.projetfinal.models.form.userForm.UserRegisterForm;
 import be.digitalcity.projetfinal.models.form.userForm.UserUpdateForm;
 import be.digitalcity.projetfinal.repository.UserRepository;
+import be.digitalcity.projetfinal.services.RoleService;
 import be.digitalcity.projetfinal.services.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,12 +27,16 @@ public class UserServiceImpl implements UserService {
     private final UserMapper mapper;
     private final AddressMapper addressMapper;
     private final PasswordEncoder encoder;
+    private final RoleService roleService;
+    private final RoleMapper roleMapper;
 
-    public UserServiceImpl(UserRepository repository, UserMapper mapper, AddressMapper addressMapper, PasswordEncoder encoder) {
+    public UserServiceImpl(UserRepository repository, UserMapper mapper, AddressMapper addressMapper, PasswordEncoder encoder, RoleService roleService, RoleMapper roleMapper) {
         this.repository = repository;
         this.mapper = mapper;
         this.addressMapper = addressMapper;
         this.encoder = encoder;
+        this.roleService = roleService;
+        this.roleMapper = roleMapper;
     }
 
     @Override
@@ -102,6 +110,18 @@ public class UserServiceImpl implements UserService {
                 .filter(BaseEntity::isActive)
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDTO addRoles(User user, UserAddRoleForm userAddRoleForm) {
+        List<Role> roleList = userAddRoleForm.getRoles().stream()
+                        .map(this.roleService::getOne)
+                        .map(this.roleMapper::toEntity)
+                        .collect(Collectors.toList());
+
+        user.setRoles(roleList);
+
+        return mapper.toDto(user);
     }
 
     @Override

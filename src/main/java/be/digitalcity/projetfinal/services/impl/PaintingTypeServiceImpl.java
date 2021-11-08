@@ -2,6 +2,7 @@ package be.digitalcity.projetfinal.services.impl;
 
 import be.digitalcity.projetfinal.mappers.PaintingTypeMapper;
 import be.digitalcity.projetfinal.models.dto.PaintingTypeDTO;
+import be.digitalcity.projetfinal.models.entity.Painting;
 import be.digitalcity.projetfinal.models.entity.PaintingType;
 import be.digitalcity.projetfinal.models.entity.abstractClass.BaseEntity;
 import be.digitalcity.projetfinal.models.form.PaintingTypeForm;

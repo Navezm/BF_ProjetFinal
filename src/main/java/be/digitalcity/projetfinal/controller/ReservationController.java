@@ -33,20 +33,20 @@ public class ReservationController {
         return ResponseEntity.ok(service.getOne(id));
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<List<ReservationDTO>> getByUser(@PathVariable Long id){
-        return ResponseEntity.ok(service.findByUser(id));
-    }
+//    @GetMapping("/user/{id}")
+//    public ResponseEntity<List<ReservationDTO>> getByUser(@PathVariable Long id){
+//        return ResponseEntity.ok(service.findByUser(id));
+//    }
 
     @GetMapping("/date")
     public ResponseEntity<List<ReservationDTO>> getByDate(@Valid @RequestBody DateForm date){
         return ResponseEntity.ok(service.findByDate(date));
     }
 
-    @GetMapping("/eventType/{id}")
-    public ResponseEntity<List<ReservationDTO>> getByEventType(@PathVariable Long id){
-        return ResponseEntity.ok(service.findByEventType(id));
-    }
+//    @GetMapping("/eventType/{id}")
+//    public ResponseEntity<List<ReservationDTO>> getByEventType(@PathVariable Long id){
+//        return ResponseEntity.ok(service.findByEventType(id));
+//    }
 
     @PostMapping
     public ResponseEntity<ReservationDTO> insert(@Valid @RequestBody ReservationForm form){

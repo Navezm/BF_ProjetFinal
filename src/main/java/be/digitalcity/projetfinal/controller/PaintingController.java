@@ -6,6 +6,7 @@ import be.digitalcity.projetfinal.services.PaintingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -22,7 +23,7 @@ public class PaintingController {
     }
 
     @GetMapping({"", "/all"})
-    @Secured({"shopAccess"})
+    @Secured(value= {"shopAccess"})
     public ResponseEntity<List<PaintingDTO>> getAll(){
         return ResponseEntity.ok(service.findAll());
     }
@@ -32,10 +33,10 @@ public class PaintingController {
         return ResponseEntity.ok(service.getOne(id));
     }
 
-    @GetMapping("/type/{id}")
-    public ResponseEntity<List<PaintingDTO>> getByType(@PathVariable(value = "id") Long id){
-        return ResponseEntity.ok(service.findByType(id));
-    }
+//    @GetMapping("/type/{id}")
+//    public ResponseEntity<List<PaintingDTO>> getByType(@PathVariable(value = "id") Long id){
+//        return ResponseEntity.ok(service.findByType(id));
+//    }
 
     @GetMapping("/isAvailable")
     @Secured({"shopAccess"})
