@@ -23,7 +23,7 @@ public class ReservationController {
         this.service = service;
     }
 
-    @GetMapping({"", "/all"})
+    @GetMapping({""})
     public ResponseEntity<List<ReservationDTO>> getAll(){
         return ResponseEntity.ok(service.findAll());
     }

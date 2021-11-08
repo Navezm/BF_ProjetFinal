@@ -9,6 +9,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class PaintingController {
     }
 
     @GetMapping({"", "/all"})
-    @Secured(value= {"shopAccess"})
+//    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<PaintingDTO>> getAll(){
         return ResponseEntity.ok(service.findAll());
     }
@@ -39,7 +40,7 @@ public class PaintingController {
 //    }
 
     @GetMapping("/isAvailable")
-    @Secured({"shopAccess"})
+//    @Secured({"shopAccess"})
     public ResponseEntity<List<PaintingDTO>> getByAvailibility(){
         return ResponseEntity.ok(service.findByAvailability());
     }

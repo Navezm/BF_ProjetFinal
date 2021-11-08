@@ -24,7 +24,7 @@ public class PicturePurchaseController {
         this.service = service;
     }
 
-    @GetMapping({"", "/all"})
+    @GetMapping({""})
     public ResponseEntity<List<PicturePurchaseDTO>> getAll(){
         return ResponseEntity.ok(service.findAll());
     }

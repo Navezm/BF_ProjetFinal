@@ -23,18 +23,20 @@ public class UserController {
     private final PaintingQuotationService paintingQuotationService;
     private final PicturePurchaseService picturePurchaseService;
     private final ReservationService reservationService;
+    private final AddressService addressService;
 
     @Autowired
-    public UserController(UserService userService, UserMapper userMapper, PaintingPurchaseService paintingPurchaseService, PaintingQuotationService paintingQuotationService, PicturePurchaseService picturePurchaseService, ReservationService reservationService){
+    public UserController(UserService userService, UserMapper userMapper, PaintingPurchaseService paintingPurchaseService, PaintingQuotationService paintingQuotationService, PicturePurchaseService picturePurchaseService, ReservationService reservationService, AddressService addressService){
         this.service = userService;
         this.userMapper = userMapper;
         this.paintingPurchaseService = paintingPurchaseService;
         this.paintingQuotationService = paintingQuotationService;
         this.picturePurchaseService = picturePurchaseService;
         this.reservationService = reservationService;
+        this.addressService = addressService;
     }
 
-    @GetMapping({"", "/all"})
+    @GetMapping({""})
     public ResponseEntity<List<UserDTO>> getAll(){
         return ResponseEntity.ok(service.findAll());
     }
@@ -71,6 +73,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserRegisterForm form){
+        this.addressService.insert(form.getAddress());
         return ResponseEntity.ok(service.insert(form));
     }
 

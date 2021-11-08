@@ -28,7 +28,7 @@ public class EventCategoryController {
         this.reservationService = reservationService;
     }
 
-    @GetMapping({"", "/all"})
+    @GetMapping({""})
     public ResponseEntity<List<EventCategoryDTO>> getAll(){
         return ResponseEntity.ok(service.findAll());
     }

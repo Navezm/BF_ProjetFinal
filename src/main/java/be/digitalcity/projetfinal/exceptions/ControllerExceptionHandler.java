@@ -91,4 +91,15 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.badRequest()
                 .body(new ExceptionDTO(ex.getMessage()));
     }
+
+//    /**
+//     * Handling of the HttpRequestMethodNotSupportedException
+//     * @param ex
+//     * @return
+//     */
+//    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+//    public ResponseEntity<ExceptionDTO> handle(HttpRequestMethodNotSupportedException ex){
+//        return ResponseEntity.badRequest()
+//                .body(new ExceptionDTO(ex.getMessage()));
+//    }
 }

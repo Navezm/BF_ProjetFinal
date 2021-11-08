@@ -20,7 +20,7 @@ public class AddressController {
         this.service = service;
     }
 
-    @GetMapping({"", "/all"})
+    @GetMapping({""})
     public ResponseEntity<List<AddressDTO>> getAll(){
         return ResponseEntity.ok(service.findAll());
     }

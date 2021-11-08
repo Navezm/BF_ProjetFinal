@@ -25,7 +25,7 @@ public class PaintingQuotationController {
         this.service = service;
     }
 
-    @GetMapping({"", "/all"})
+    @GetMapping({""})
     public ResponseEntity<List<PaintingQuotationDTO>> getAll(){
         return ResponseEntity.ok(service.findAll());
     }

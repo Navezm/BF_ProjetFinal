@@ -20,7 +20,7 @@ public class DisponibilityController {
         this.service = service;
     }
 
-    @GetMapping({"", "/all"})
+    @GetMapping({""})
     public ResponseEntity<List<DisponibilityDTO>> getAll(){
         return ResponseEntity.ok(service.findAll());
     }

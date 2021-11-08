@@ -9,6 +9,8 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -26,6 +29,7 @@ import java.util.stream.Stream;
 public class JwtTokenProvider {
 
     private final UserService service;
+    private final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
 
     public JwtTokenProvider(UserService service) {
         this.service = service;
@@ -47,7 +51,7 @@ public class JwtTokenProvider {
 //                                .collect(Collectors.toList()).stream()
 //                        ).collect(Collectors.toList())
 //                )
-                .withClaim("roles", new ArrayList<>(user.getAuthorities()))
+                .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(Algorithm.HMAC512(JWT_KEY));
 
         return TOKEN_PREFIX+token;
@@ -81,6 +85,7 @@ public class JwtTokenProvider {
                 .getSubject();
         UserDetails userDetails = service.loadUserByUsername(username);
 
+//        userDetails.getAuthorities().forEach(a -> logger.info(a.toString()));
         return new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, userDetails.getAuthorities());
     }
 

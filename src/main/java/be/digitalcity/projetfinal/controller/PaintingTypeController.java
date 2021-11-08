@@ -24,7 +24,7 @@ public class PaintingTypeController {
         this.paintingService = paintingService;
     }
 
-    @GetMapping({"", "/all"})
+    @GetMapping({""})
     public ResponseEntity<List<PaintingTypeDTO>> getAll(){
         return ResponseEntity.ok(service.findAll());
     }

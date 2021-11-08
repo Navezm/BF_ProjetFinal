@@ -20,7 +20,7 @@ public class RoleController {
         this.service = service;
     }
 
-    @GetMapping({"", "/all"})
+    @GetMapping({""})
     public ResponseEntity<List<RoleDTO>> getAll(){
         return ResponseEntity.ok(service.findAll());
     }

@@ -21,7 +21,7 @@ public class GroupController {
         this.service = service;
     }
 
-    @GetMapping({"", "/all"})
+    @GetMapping({""})
     public ResponseEntity<List<GroupDTO>> getAll(){
         return ResponseEntity.ok(service.findAll());
     }

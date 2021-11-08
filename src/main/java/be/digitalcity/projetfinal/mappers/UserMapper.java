@@ -3,6 +3,7 @@ package be.digitalcity.projetfinal.mappers;
 import be.digitalcity.projetfinal.models.dto.UserDTO;
 import be.digitalcity.projetfinal.models.entity.User;
 import be.digitalcity.projetfinal.models.form.userForm.UserRegisterForm;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -13,7 +14,7 @@ public class UserMapper implements BaseMapper<UserDTO, UserRegisterForm, User> {
     private final RoleMapper roleMapper;
     private final GroupMapper groupMapper;
 
-    public UserMapper(AddressMapper addressMapper, RoleMapper roleMapper, GroupMapper groupMapper) {
+    public UserMapper(AddressMapper addressMapper, RoleMapper roleMapper, GroupMapper groupMapper, PasswordEncoder encoder) {
         this.addressMapper = addressMapper;
         this.roleMapper = roleMapper;
         this.groupMapper = groupMapper;
@@ -50,10 +51,6 @@ public class UserMapper implements BaseMapper<UserDTO, UserRegisterForm, User> {
         userDTO.setUsername(entity.getUsername());
         userDTO.setEmail(entity.getEmail());
         userDTO.setAddress(addressMapper.toDto(entity.getAddress()));
-        userDTO.setGroup(groupMapper.toDto(entity.getGroup()));
-        userDTO.setRoles(entity.getRoles().stream()
-                .map(roleMapper::toDto)
-                .collect(Collectors.toList()));
         userDTO.setId(entity.getId());
         userDTO.setAccountNonExpired(entity.isAccountNonExpired());
         userDTO.setAccountNonLocked(entity.isAccountNonLocked());

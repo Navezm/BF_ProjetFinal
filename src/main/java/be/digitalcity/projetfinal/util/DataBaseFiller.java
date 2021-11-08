@@ -73,16 +73,15 @@ public class DataBaseFiller implements InitializingBean {
         );
 
         List<Role> roleList = List.of(
-                new Role("reservation"),
+                new Role("makingReservation"),
                 new Role("buy"),
-                new Role("addPainting"),
-                new Role("addPicture"),
                 new Role("shopAccess"),
                 new Role("makingQuotation"),
+                new Role("addPainting"),
+                new Role("addPicture"),
                 new Role("deletePainting"),
                 new Role("deletePicture"),
-                new Role("addRole"),
-                new Role("deleteRole"),
+                new Role("handleRole"),
                 new Role("treatingQuotation"),
                 new Role("handlePurchase"),
                 new Role("handleReservation"),
@@ -90,7 +89,8 @@ public class DataBaseFiller implements InitializingBean {
                 new Role("deleteUser"),
                 new Role("modifyUser"),
                 new Role("addUser"),
-                new Role("addAvailability")
+                new Role("addAvailability"),
+                new Role("USER")
         );
 
         List<Group> groupList = List.of(
@@ -118,9 +118,7 @@ public class DataBaseFiller implements InitializingBean {
                         roleList.get(0),
                         roleList.get(1),
                         roleList.get(2),
-                        roleList.get(3),
-                        roleList.get(4),
-                        roleList.get(5))
+                        roleList.get(3))
                 )
         );
 
@@ -176,18 +174,18 @@ public class DataBaseFiller implements InitializingBean {
                 new Reservation(StatusEnum.ONGOING, userList.get(2), LocalDate.of(2022,12,24), LocalDate.of(2022,12,25), eventCategoryList.get(1))
         );
 
-        this.addressRepository.saveAll(addressList);
-        this.disponibilityRepository.saveAll(disponibilityList);
-        this.eventCategoryRepository.saveAll(eventCategoryList);
-        this.roleRepository.saveAll(roleList);
-        this.groupRepository.saveAll(groupList);
-        this.userRepository.saveAll(userList);
-        this.paintingTypeRepository.saveAll(paintingTypeList);
-        this.paintingRepository.saveAll(paintingList);
-        this.paintingQuotationRepository.saveAll(paintingQuotationList);
-        this.paintingPurchaseRepository.saveAll(paintingPurchaseList);
-        this.pictureRepository.saveAll(pictureList);
-        this.picturePurchaseRepository.saveAll(picturePurchaseList);
-        this.reservationRepository.saveAll(reservationList);
+//        this.addressRepository.saveAll(addressList);
+//        this.disponibilityRepository.saveAll(disponibilityList);
+//        this.eventCategoryRepository.saveAll(eventCategoryList);
+//        this.roleRepository.saveAll(roleList);
+//        this.groupRepository.saveAll(groupList);
+//        this.userRepository.saveAll(userList);
+//        this.paintingTypeRepository.saveAll(paintingTypeList);
+//        this.paintingRepository.saveAll(paintingList);
+//        this.paintingQuotationRepository.saveAll(paintingQuotationList);
+//        this.paintingPurchaseRepository.saveAll(paintingPurchaseList);
+//        this.pictureRepository.saveAll(pictureList);
+//        this.picturePurchaseRepository.saveAll(picturePurchaseList);
+//        this.reservationRepository.saveAll(reservationList);
     }
 }
