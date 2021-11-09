@@ -22,5 +22,5 @@ public interface UserService extends UserDetailsService {
 
     List<UserDTO> findByGroup(Long id);
 
-    UserDTO addRoles(User user, UserAddRoleForm userAddRoleForm);
+    User addRoles(User user, UserAddRoleForm userAddRoleForm);
 }

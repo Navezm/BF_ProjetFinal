@@ -30,10 +30,12 @@ public class UserMapper implements BaseMapper<UserDTO, UserRegisterForm, User> {
         user.setAddress(addressMapper.toEntity(dto.getAddress()));
         user.setEmail(dto.getEmail());
         user.setUsername(dto.getUsername());
-        user.setGroup(groupMapper.toEntity(dto.getGroup()));
-        user.setRoles(dto.getRoles().stream()
-                .map(roleMapper::toEntity)
-                .collect(Collectors.toList()));
+        if (dto.getGroup() != null)
+            user.setGroup(groupMapper.toEntity(dto.getGroup()));
+        if (dto.getRoles() != null)
+            user.setRoles(dto.getRoles().stream()
+                    .map(roleMapper::toEntity)
+                    .collect(Collectors.toList()));
         user.setAccountNonExpired(dto.isAccountNonExpired());
         user.setAccountNonLocked(dto.isAccountNonLocked());
         user.setCreditialsNonExpired(dto.isCreditialsNonExpired());
@@ -69,7 +71,7 @@ public class UserMapper implements BaseMapper<UserDTO, UserRegisterForm, User> {
         user.setPassword(form.getPassword());
         user.setUsername(form.getUsername());
         user.setEmail(form.getEmail());
-        user.setAddress(addressMapper.fromFormToEntity(form.getAddress()));
+        user.setAddress(form.getAddress());
 
         return user;
     }

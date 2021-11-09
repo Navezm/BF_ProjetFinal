@@ -38,7 +38,7 @@ public class User extends BaseEntity<Long> implements UserDetails {
     @ManyToOne(targetEntity = Group.class, fetch = FetchType.EAGER)
     private Group group;
 
-    @ManyToOne(targetEntity = Address.class, cascade = CascadeType.ALL) // Mettre en cascade
+    @ManyToOne(targetEntity = Address.class, cascade = {CascadeType.PERSIST}) // Mettre en cascade
     private Address address;
 
     public void setRoles(List<Role> roles) {

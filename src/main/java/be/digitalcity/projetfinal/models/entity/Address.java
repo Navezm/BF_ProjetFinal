@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address extends BaseEntity<Long> {
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String street;
     @Column(nullable = false)
     private String number;

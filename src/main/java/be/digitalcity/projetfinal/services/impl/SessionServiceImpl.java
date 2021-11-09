@@ -59,7 +59,7 @@ public class SessionServiceImpl implements SessionService {
     public UserDTO register(UserRegisterForm form) {
         User u = new User();
         u.setUsername(form.getUsername());
-        u.setAddress(addressMapper.fromFormToEntity(form.getAddress()));
+        u.setAddress(form.getAddress());
         u.setEmail(form.getEmail());
         u.setPassword(passwordEncoder.encode(form.getPassword()));
 

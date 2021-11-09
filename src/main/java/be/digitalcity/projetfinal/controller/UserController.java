@@ -1,11 +1,15 @@
 package be.digitalcity.projetfinal.controller;
 
+import be.digitalcity.projetfinal.mappers.GroupMapper;
 import be.digitalcity.projetfinal.mappers.UserMapper;
 import be.digitalcity.projetfinal.models.dto.*;
+import be.digitalcity.projetfinal.models.entity.Group;
 import be.digitalcity.projetfinal.models.entity.User;
+import be.digitalcity.projetfinal.models.form.userForm.UserAddGroup;
 import be.digitalcity.projetfinal.models.form.userForm.UserAddRoleForm;
 import be.digitalcity.projetfinal.models.form.userForm.UserRegisterForm;
 import be.digitalcity.projetfinal.models.form.userForm.UserUpdateForm;
+import be.digitalcity.projetfinal.repository.UserRepository;
 import be.digitalcity.projetfinal.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,17 +27,21 @@ public class UserController {
     private final PaintingQuotationService paintingQuotationService;
     private final PicturePurchaseService picturePurchaseService;
     private final ReservationService reservationService;
-    private final AddressService addressService;
+    private final GroupService groupService;
+    private final GroupMapper groupMapper;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserController(UserService userService, UserMapper userMapper, PaintingPurchaseService paintingPurchaseService, PaintingQuotationService paintingQuotationService, PicturePurchaseService picturePurchaseService, ReservationService reservationService, AddressService addressService){
+    public UserController(UserService userService, UserMapper userMapper, PaintingPurchaseService paintingPurchaseService, PaintingQuotationService paintingQuotationService, PicturePurchaseService picturePurchaseService, ReservationService reservationService, GroupService groupService, GroupMapper groupMapper, UserRepository userRepository){
         this.service = userService;
         this.userMapper = userMapper;
         this.paintingPurchaseService = paintingPurchaseService;
         this.paintingQuotationService = paintingQuotationService;
         this.picturePurchaseService = picturePurchaseService;
         this.reservationService = reservationService;
-        this.addressService = addressService;
+        this.groupService = groupService;
+        this.groupMapper = groupMapper;
+        this.userRepository = userRepository;
     }
 
     @GetMapping({""})
@@ -73,7 +81,6 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserRegisterForm form){
-        this.addressService.insert(form.getAddress());
         return ResponseEntity.ok(service.insert(form));
     }
 
@@ -87,11 +94,20 @@ public class UserController {
         return ResponseEntity.ok(service.update(id, form));
     }
 
-    @PatchMapping("/user/{id}/roles")
-    public ResponseEntity<UserDTO> addRoles(@PathVariable() long id, @Valid @RequestBody UserAddRoleForm form) {
-        User user = userMapper.toEntity(this.service.getOne(id));
+    @PatchMapping("/{id}/roles")
+    public ResponseEntity<UserDTO> addRoles(@PathVariable("id") User user, @Valid @RequestBody UserAddRoleForm form) {
+        this.userRepository.save(this.service.addRoles(user, form));
 
-        this.service.addRoles(user, form);
+        return ResponseEntity.ok(userMapper.toDto(user));
+    }
+
+    @PatchMapping("/{id}/group")
+    public ResponseEntity<UserDTO> addGroup(@PathVariable("id") User user, @Valid @RequestBody UserAddGroup form){
+        Group group = groupMapper.toEntity(this.groupService.getOne(form.getId()));
+
+        user.setGroup(group);
+
+        this.userRepository.save(user);
 
         return ResponseEntity.ok(userMapper.toDto(user));
     }

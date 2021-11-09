@@ -24,8 +24,10 @@ public class UserRegisterForm {
     private String username;
     @NotNull
     private String email;
+//    @NotNull
+//    private AddressForm address;
     @NotNull
-    private AddressForm address;
+    private Address address;
     @Length(min = 6)
     @NotNull
     private String password;
