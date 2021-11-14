@@ -54,3 +54,4 @@ public class PaintingTypeController {
         return ResponseEntity.ok(paintingService.findByType(id));
     }
 }
+

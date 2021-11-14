@@ -31,14 +31,13 @@ public class User extends BaseEntity<Long> implements UserDetails {
     private String email;
 
     @OneToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
-
     private List<Role> roles;
 
 
     @ManyToOne(targetEntity = Group.class, fetch = FetchType.EAGER)
     private Group group;
 
-    @ManyToOne(targetEntity = Address.class, cascade = {CascadeType.PERSIST}) // Mettre en cascade
+    @ManyToOne(targetEntity = Address.class, cascade = {CascadeType.PERSIST})
     private Address address;
 
     public void setRoles(List<Role> roles) {

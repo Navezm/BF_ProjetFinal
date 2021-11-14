@@ -66,10 +66,10 @@ public class DataBaseFiller implements InitializingBean {
         );
 
         List<EventCategory> eventCategoryList = List.of(
-                new EventCategory("Mariage"),
-                new EventCategory("Anniversaire"),
-                new EventCategory("Nourriture"),
-                new EventCategory("Landscape")
+                new EventCategory("Event"),
+                new EventCategory("Travel"),
+                new EventCategory("Food"),
+                new EventCategory("Portraits")
         );
 
         List<Role> roleList = List.of(
@@ -123,17 +123,21 @@ public class DataBaseFiller implements InitializingBean {
         );
 
         List<PaintingType> paintingTypeList = List.of(
-                new PaintingType("Stripes"),
-                new PaintingType("Dots"),
-                new PaintingType("Impressionism")
+                new PaintingType("Lines"),
+                new PaintingType("Abstract")
         );
 
         List<Painting> paintingList = List.of(
-                new Painting(paintingTypeList.get(0), "Paint1", "src", "description", BigDecimal.valueOf(1.20), true),
-                new Painting(paintingTypeList.get(1), "Paint2", "src1", "description1", BigDecimal.valueOf(253), true),
-                new Painting(paintingTypeList.get(0), "Paint3", "src2", "description2", BigDecimal.valueOf(24.5), true),
-                new Painting(paintingTypeList.get(2), "Paint4", "src3", "description3", BigDecimal.valueOf(82.3), true),
-                new Painting(paintingTypeList.get(2), "Paint5", "src4", "description4", BigDecimal.valueOf(4.658), true)
+                new Painting(paintingTypeList.get(1), "Almost white", "/img/painting/IMG_0452.JPG", "Beautiful painting", BigDecimal.valueOf(62), true),
+                new Painting(paintingTypeList.get(0), "Rainbow Lines Background", "/img/painting/IMG_0836.JPG", "Lines with colors and stuff", BigDecimal.valueOf(49), true),
+                new Painting(paintingTypeList.get(0), "Twins Rainbow Lines", "/img/painting/IMG_7588.jpg", "Twin painting lines", BigDecimal.valueOf(120), true),
+                new Painting(paintingTypeList.get(1), "Mix Color", "/img/painting/IMG_8125.JPG", "Colors mix with white", BigDecimal.valueOf(82.3), true),
+                new Painting(paintingTypeList.get(0), "Spaced Lines", "/img/painting/IMG_8134.JPG", "White background", BigDecimal.valueOf(46.5), true),
+                new Painting(paintingTypeList.get(1), "Abstract Square", "/img/painting/IMG_8172.JPG", "Square with colors", BigDecimal.valueOf(58), true),
+                new Painting(paintingTypeList.get(1), "Colors Spread", "/img/painting/IMG_8653.JPG", "White & Colors", BigDecimal.valueOf(81), true),
+                new Painting(paintingTypeList.get(1), "Ocean Throuple", "/img/painting/IMG_8822.JPG", "Three paintings that are better together", BigDecimal.valueOf(46), true),
+                new Painting(paintingTypeList.get(1), "White Dots", "/img/painting/IMG_9301.JPG", "White dots on colorful background", BigDecimal.valueOf(90), true),
+                new Painting(paintingTypeList.get(1), "White dots overview", "/img/painting/IMG_9440crop.jpg", "White dots on colorful background (but the whole painting)", BigDecimal.valueOf(90), true)
         );
 
 
@@ -146,7 +150,7 @@ public class DataBaseFiller implements InitializingBean {
         List<PaintingQuotation> paintingQuotationList = List.of(
                 new PaintingQuotation(FormatEnum.BIG, ColorEnum.MIX1, "message1", paintingTypeList.get(0), StatusEnum.DONE, userList.get(0)),
                 new PaintingQuotation(FormatEnum.SMALL, ColorEnum.MIX2, "message2", paintingTypeList.get(1), StatusEnum.PENDING, userList.get(1)),
-                new PaintingQuotation(FormatEnum.MEDIUM, ColorEnum.MIX3, "message3", paintingTypeList.get(2), StatusEnum.ONGOING, userList.get(2))
+                new PaintingQuotation(FormatEnum.MEDIUM, ColorEnum.MIX3, "message3", paintingTypeList.get(0), StatusEnum.ONGOING, userList.get(2))
         );
 
         List<PaintingPurchase> paintingPurchaseList = List.of(
@@ -156,14 +160,24 @@ public class DataBaseFiller implements InitializingBean {
         );
 
         List<Picture> pictureList = List.of(
-                new Picture("picture1", "src", "description", BigDecimal.valueOf(10), true, eventCategoryList.get(0)),
-                new Picture("picture2", "src1", "description1", BigDecimal.valueOf(1.5), true, eventCategoryList.get(1)),
-                new Picture("picture3", "src2", "description2", BigDecimal.valueOf(263), true, eventCategoryList.get(2)),
-                new Picture("picture4", "src3", "description3", BigDecimal.valueOf(45.12), true, eventCategoryList.get(1))
+                new Picture("Alhambra", "/img/picture/Alhambra1.jpg", "Picture of the Alhambra", BigDecimal.valueOf(25), true, eventCategoryList.get(1)),
+                new Picture("CapeTown", "/img/picture/CapeTown1.jpg", "Beautiful place CapeTown", BigDecimal.valueOf(12.5), true, eventCategoryList.get(1)),
+                new Picture("Corse", "/img/picture/Corse1.jpg", "Beautiful island", BigDecimal.valueOf(33), true, eventCategoryList.get(1)),
+                new Picture("Beach", "/img/picture/IMG_0173.JPG", "Magnificent beach", BigDecimal.valueOf(45.12), true, eventCategoryList.get(0)),
+                new Picture("Sea", "/img/picture/IMG_0255.JPG", "Magnificent sea", BigDecimal.valueOf(30), true, eventCategoryList.get(0)),
+                new Picture("New-York Street-Art", "/img/picture/IMG_5591.JPG", "Street Art in NY City", BigDecimal.valueOf(39), true, eventCategoryList.get(1)),
+                new Picture("Bridge", "/img/picture/IMG_52381.jpg", "Magnificent bridge", BigDecimal.valueOf(12), true, eventCategoryList.get(2)),
+                new Picture("Sea & Mountains", "/img/picture/IMG_53911.jpg", "Nature and it's beauty", BigDecimal.valueOf(31), true, eventCategoryList.get(2)),
+                new Picture("Boat", "/img/picture/IMG_54111.jpg", "What a boat!", BigDecimal.valueOf(10), true, eventCategoryList.get(2)),
+                new Picture("Italie", "/img/picture/Italie1.jpg", "Pasta & stuff", BigDecimal.valueOf(21.5), true, eventCategoryList.get(0)),
+                new Picture("New-York Bridge", "/img/picture/NY1.jpg", "The beautiful famous bridge", BigDecimal.valueOf(16.5), true, eventCategoryList.get(1)),
+                new Picture("Paris", "/img/picture/Paris1.jpg", "Love & Light", BigDecimal.valueOf(13), true, eventCategoryList.get(3)),
+                new Picture("San Francisco", "/img/picture/SF1.jpg", "The bridge but in color", BigDecimal.valueOf(12), true, eventCategoryList.get(3)),
+                new Picture("Road in the USA", "/img/picture/USA1.jpg", "Passing by in the highway", BigDecimal.valueOf(21), true, eventCategoryList.get(3))
         );
 
         List<PicturePurchase> picturePurchaseList = List.of(
-                new PicturePurchase(StatusEnum.ONGOING, userList.get(0), pictureList),
+                new PicturePurchase(StatusEnum.ONGOING, userList.get(0), List.of(pictureList.get(5), pictureList.get(6), pictureList.get(7))),
                 new PicturePurchase(StatusEnum.ONGOING, userList.get(1), List.of(pictureList.get(2), pictureList.get(3))),
                 new PicturePurchase(StatusEnum.ONGOING, userList.get(2), List.of(pictureList.get(0)))
         );

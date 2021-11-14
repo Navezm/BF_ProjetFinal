@@ -21,7 +21,6 @@ import java.util.List;
 public class PaintingPurchaseForm {
     @NotNull
     private StatusEnum status;
-    @NotNull
     private User user;
     @NotNull
     private List<Painting> paintings;

@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/final-project
     username: postgres
-    password: louis14
+    password: 123456
   jpa:
     hibernate:
       ddlauto: update
@@ -15,6 +15,6 @@ spring:
   mvc:
     throw-exception-if-no-handler-found: true
     static-path-pattern: /static
-  config:
-    activate:
-      on-profile: dev
+#  config:
+#    activate:
+#      on-profile: dev
