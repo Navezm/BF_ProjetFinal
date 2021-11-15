@@ -41,6 +41,10 @@ public class User extends BaseEntity<Long> implements UserDetails {
     private Address address;
 
     public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void addRoles(List<Role> roles) {
         this.roles.addAll(roles);
     }
 

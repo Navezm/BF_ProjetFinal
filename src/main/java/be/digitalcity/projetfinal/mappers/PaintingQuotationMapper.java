@@ -1,19 +1,21 @@
 package be.digitalcity.projetfinal.mappers;
 
 import be.digitalcity.projetfinal.models.dto.PaintingQuotationDTO;
-import be.digitalcity.projetfinal.models.entity.Painting;
 import be.digitalcity.projetfinal.models.entity.PaintingQuotation;
 import be.digitalcity.projetfinal.models.form.PaintingQuotationForm;
+import be.digitalcity.projetfinal.repository.PaintingTypeRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PaintingQuotationMapper implements BaseMapper<PaintingQuotationDTO, PaintingQuotationForm, PaintingQuotation> {
     private final PaintingTypeMapper paintingTypeMapper;
     private final UserMapper userMapper;
+    private final PaintingTypeRepository paintingTypeRepository;
 
-    public PaintingQuotationMapper(PaintingTypeMapper paintingTypeMapper, UserMapper userMapper) {
+    public PaintingQuotationMapper(PaintingTypeMapper paintingTypeMapper, UserMapper userMapper, PaintingTypeRepository paintingTypeRepository) {
         this.paintingTypeMapper = paintingTypeMapper;
         this.userMapper = userMapper;
+        this.paintingTypeRepository = paintingTypeRepository;
     }
 
     @Override
@@ -56,7 +58,7 @@ public class PaintingQuotationMapper implements BaseMapper<PaintingQuotationDTO,
 
         PaintingQuotation paintingQuotation = new PaintingQuotation();
 
-        paintingQuotation.setPaintingType(form.getPaintingType());
+        paintingQuotation.setPaintingType(this.paintingTypeRepository.getById(form.getPaintingTypeId().longValue()));
         paintingQuotation.setUser(form.getUser());
         paintingQuotation.setStatus(form.getStatus());
         paintingQuotation.setFormat(form.getFormat());

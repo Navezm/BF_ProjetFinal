@@ -9,6 +9,7 @@ import be.digitalcity.projetfinal.models.form.PaintingQuotationForm;
 import be.digitalcity.projetfinal.models.form.typeForm.DateForm;
 import be.digitalcity.projetfinal.models.form.typeForm.StatusForm;
 import be.digitalcity.projetfinal.repository.PaintingQuotationRepository;
+import be.digitalcity.projetfinal.repository.PaintingTypeRepository;
 import be.digitalcity.projetfinal.services.PaintingQuotationService;
 import be.digitalcity.projetfinal.services.UserService;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,14 @@ import java.util.stream.Collectors;
 @Service
 public class PaintingQuotationServiceImpl implements PaintingQuotationService {
     private final PaintingQuotationRepository repository;
+    private final PaintingTypeRepository paintingTypeRepository;
     private final PaintingQuotationMapper mapper;
     private final UtilMapper utilMapper;
     private final UserService userService;
 
-    public PaintingQuotationServiceImpl(PaintingQuotationRepository repository, PaintingQuotationMapper mapper, UtilMapper utilMapper, UserService userService) {
+    public PaintingQuotationServiceImpl(PaintingQuotationRepository repository, PaintingTypeRepository paintingTypeRepository, PaintingQuotationMapper mapper, UtilMapper utilMapper, UserService userService) {
         this.repository = repository;
+        this.paintingTypeRepository = paintingTypeRepository;
         this.mapper = mapper;
         this.utilMapper = utilMapper;
         this.userService = userService;
@@ -69,7 +72,7 @@ public class PaintingQuotationServiceImpl implements PaintingQuotationService {
         toUpdate.setColorChoice(paintingQuotationForm.getColorChoice());
         toUpdate.setMessage(paintingQuotationForm.getMessage());
         toUpdate.setFormat(paintingQuotationForm.getFormat());
-        toUpdate.setPaintingType(paintingQuotationForm.getPaintingType());
+        toUpdate.setPaintingType(this.paintingTypeRepository.getById(paintingQuotationForm.getPaintingTypeId().longValue()));
         toUpdate.setUser(paintingQuotationForm.getUser());
         toUpdate.setStatus(paintingQuotationForm.getStatus());
 

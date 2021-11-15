@@ -122,7 +122,7 @@ public class UserServiceImpl implements UserService {
                         .map(this.roleMapper::toEntity)
                         .collect(Collectors.toList());
 
-        user.setRoles(roleList);
+        user.addRoles(roleList);
 
         return user;
     }

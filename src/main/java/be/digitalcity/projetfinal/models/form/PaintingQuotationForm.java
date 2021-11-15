@@ -30,5 +30,5 @@ public class PaintingQuotationForm {
     @NotNull
     private String message;
     @NotNull
-    private PaintingType paintingType;
+    private Integer paintingTypeId;
 }
