@@ -58,10 +58,12 @@ public class UserMapper implements BaseMapper<UserDTO, UserRegisterForm, User> {
         userDTO.setAccountNonLocked(entity.isAccountNonLocked());
         userDTO.setCreditialsNonExpired(entity.isCreditialsNonExpired());
         userDTO.setEnabled(entity.isEnabled());
-        userDTO.setRoles(entity.getRoles()
-                .stream()
-                .map(roleMapper::toDto)
-                .collect(Collectors.toList()));
+        if(entity.getRoles() != null) {
+            userDTO.setRoles(entity.getRoles()
+                    .stream()
+                    .map(roleMapper::toDto)
+                    .collect(Collectors.toList()));
+        }
         userDTO.setGroup(groupMapper.toDto(entity.getGroup()));
 
         return userDTO;

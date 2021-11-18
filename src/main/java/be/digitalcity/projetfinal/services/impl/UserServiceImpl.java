@@ -1,6 +1,7 @@
 package be.digitalcity.projetfinal.services.impl;
 
 import be.digitalcity.projetfinal.mappers.AddressMapper;
+import be.digitalcity.projetfinal.mappers.GroupMapper;
 import be.digitalcity.projetfinal.mappers.RoleMapper;
 import be.digitalcity.projetfinal.mappers.UserMapper;
 import be.digitalcity.projetfinal.models.dto.UserDTO;
@@ -12,6 +13,7 @@ import be.digitalcity.projetfinal.models.form.userForm.UserRegisterForm;
 import be.digitalcity.projetfinal.models.form.userForm.UserUpdateForm;
 import be.digitalcity.projetfinal.repository.UserRepository;
 import be.digitalcity.projetfinal.services.AddressService;
+import be.digitalcity.projetfinal.services.GroupService;
 import be.digitalcity.projetfinal.services.RoleService;
 import be.digitalcity.projetfinal.services.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,8 +33,10 @@ public class UserServiceImpl implements UserService {
     private final RoleService roleService;
     private final RoleMapper roleMapper;
     private final AddressService addressService;
+    private final GroupService groupService;
+    private final GroupMapper groupMapper;
 
-    public UserServiceImpl(UserRepository repository, UserMapper mapper, AddressMapper addressMapper, PasswordEncoder encoder, RoleService roleService, RoleMapper roleMapper, AddressService addressService) {
+    public UserServiceImpl(UserRepository repository, UserMapper mapper, AddressMapper addressMapper, PasswordEncoder encoder, RoleService roleService, RoleMapper roleMapper, AddressService addressService, GroupService groupService, GroupMapper groupMapper) {
         this.repository = repository;
         this.mapper = mapper;
         this.addressMapper = addressMapper;
@@ -40,6 +44,8 @@ public class UserServiceImpl implements UserService {
         this.roleService = roleService;
         this.roleMapper = roleMapper;
         this.addressService = addressService;
+        this.groupService = groupService;
+        this.groupMapper = groupMapper;
     }
 
     @Override
@@ -98,6 +104,7 @@ public class UserServiceImpl implements UserService {
         toInsert.setAccountNonLocked(true);
         toInsert.setCreditialsNonExpired(true);
         toInsert.setEnabled(true);
+        toInsert.setGroup(this.groupMapper.toEntity(this.groupService.getOne(2L)));
 
         toInsert.setPassword(encoder.encode(userRegisterForm.getPassword()));
 
