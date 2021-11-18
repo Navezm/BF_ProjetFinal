@@ -21,7 +21,6 @@ public class PaintingForm {
     @NotNull
     @Length(min = 2, max = 100)
     private String name;
-    @NotNull
     private String src;
     @NotNull
     private String description;
@@ -29,7 +28,7 @@ public class PaintingForm {
     @Min(0)
     private BigDecimal price;
     @NotNull
-    private boolean isAvailable;
+    private Boolean isAvailable;
     @NotNull
-    private PaintingType paintingType;
+    private Long paintingTypeId;
 }

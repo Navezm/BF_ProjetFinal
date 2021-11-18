@@ -3,14 +3,17 @@ package be.digitalcity.projetfinal.mappers;
 import be.digitalcity.projetfinal.models.dto.PictureDTO;
 import be.digitalcity.projetfinal.models.entity.Picture;
 import be.digitalcity.projetfinal.models.form.PictureForm;
+import be.digitalcity.projetfinal.services.EventCategoryService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PictureMapper implements BaseMapper<PictureDTO, PictureForm, Picture> {
     private final EventCategoryMapper eventCategoryMapper;
+    private final EventCategoryService eventCategoryService;
 
-    public PictureMapper(EventCategoryMapper eventCategoryMapper) {
+    public PictureMapper(EventCategoryMapper eventCategoryMapper, EventCategoryService eventCategoryService) {
         this.eventCategoryMapper = eventCategoryMapper;
+        this.eventCategoryService = eventCategoryService;
     }
 
     @Override
@@ -57,8 +60,8 @@ public class PictureMapper implements BaseMapper<PictureDTO, PictureForm, Pictur
         picture.setDescription(form.getDescription());
         picture.setPrice(form.getPrice());
         picture.setName(form.getName());
-        picture.setEventCategory(form.getEventCategory());
-        picture.setAvailable(form.isAvailable());
+        picture.setEventCategory(this.eventCategoryMapper.toEntity(this.eventCategoryService.getOne(form.getEventCategoryId())));
+        picture.setAvailable(form.getIsAvailable());
 
         return picture;
     }

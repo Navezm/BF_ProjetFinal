@@ -1,5 +1,6 @@
 package be.digitalcity.projetfinal.services.impl;
 
+import be.digitalcity.projetfinal.mappers.EventCategoryMapper;
 import be.digitalcity.projetfinal.mappers.PictureMapper;
 import be.digitalcity.projetfinal.models.dto.PictureDTO;
 import be.digitalcity.projetfinal.models.entity.Picture;
@@ -18,11 +19,13 @@ public class PictureServiceImpl implements PictureService {
     private final PictureRepository repository;
     private final PictureMapper mapper;
     private final EventCategoryService eventCategoryService;
+    private final EventCategoryMapper eventCategoryMapper;
 
-    public PictureServiceImpl(PictureRepository repository, PictureMapper mapper, EventCategoryService eventCategoryService) {
+    public PictureServiceImpl(PictureRepository repository, PictureMapper mapper, EventCategoryService eventCategoryService, EventCategoryMapper eventCategoryMapper) {
         this.repository = repository;
         this.mapper = mapper;
         this.eventCategoryService = eventCategoryService;
+        this.eventCategoryMapper = eventCategoryMapper;
     }
 
     @Override
@@ -61,12 +64,14 @@ public class PictureServiceImpl implements PictureService {
                 .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The picture doesn't exist"));
 
-        toUpdate.setAvailable(pictureForm.isAvailable());
         toUpdate.setName(pictureForm.getName());
         toUpdate.setPrice(pictureForm.getPrice());
         toUpdate.setDescription(pictureForm.getDescription());
-        toUpdate.setEventCategory(pictureForm.getEventCategory());
-        toUpdate.setSrc(pictureForm.getSrc());
+        toUpdate.setEventCategory(this.eventCategoryMapper.toEntity(this.eventCategoryService.getOne(pictureForm.getEventCategoryId())));
+        if(pictureForm.getSrc() != null)
+            toUpdate.setSrc(pictureForm.getSrc());
+        if(pictureForm.getIsAvailable() != null)
+            toUpdate.setAvailable(pictureForm.getIsAvailable());
 
         repository.save(toUpdate);
 

@@ -3,14 +3,17 @@ package be.digitalcity.projetfinal.mappers;
 import be.digitalcity.projetfinal.models.dto.PaintingDTO;
 import be.digitalcity.projetfinal.models.entity.Painting;
 import be.digitalcity.projetfinal.models.form.PaintingForm;
+import be.digitalcity.projetfinal.services.PaintingTypeService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PaintingMapper implements BaseMapper<PaintingDTO, PaintingForm, Painting> {
     private final PaintingTypeMapper paintingTypeMapper;
+    private final PaintingTypeService paintingTypeService;
 
-    public PaintingMapper(PaintingTypeMapper paintingTypeMapper) {
+    public PaintingMapper(PaintingTypeMapper paintingTypeMapper, PaintingTypeService paintingTypeService) {
         this.paintingTypeMapper = paintingTypeMapper;
+        this.paintingTypeService = paintingTypeService;
     }
 
     @Override
@@ -54,7 +57,7 @@ public class PaintingMapper implements BaseMapper<PaintingDTO, PaintingForm, Pai
         Painting painting = new Painting();
 
         painting.setPrice(form.getPrice());
-        painting.setPaintingType(form.getPaintingType());
+        painting.setPaintingType(this.paintingTypeMapper.toEntity(this.paintingTypeService.getOne(form.getPaintingTypeId())));
         painting.setSrc(form.getSrc());
         painting.setName(form.getName());
         painting.setDescription(form.getDescription());
