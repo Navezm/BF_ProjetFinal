@@ -21,7 +21,6 @@ public class PictureForm {
     @NotNull
     @Length(min = 2, max = 100)
     private String name;
-    @NotNull
     private String src;
     @NotNull
     @Length(min = 0, max = 255)
@@ -30,7 +29,7 @@ public class PictureForm {
     @Min(0)
     private BigDecimal price;
     @NotNull
-    private boolean isAvailable;
+    private Boolean isAvailable;
     @NotNull
-    private EventCategory eventCategory;
+    private Long eventCategoryId;
 }

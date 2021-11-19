@@ -81,7 +81,8 @@ public class User extends BaseEntity<Long> implements UserDetails {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(this.group);
         authorities.addAll(this.group.getRoleList());
-        authorities.addAll(this.roles);
+        if(this.getRoles() != null)
+            authorities.addAll(this.roles);
 
         return authorities;
     }

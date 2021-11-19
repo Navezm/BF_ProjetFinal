@@ -1,6 +1,7 @@
 package be.digitalcity.projetfinal.services.impl;
 
 import be.digitalcity.projetfinal.mappers.PaintingMapper;
+import be.digitalcity.projetfinal.mappers.PaintingTypeMapper;
 import be.digitalcity.projetfinal.models.dto.PaintingDTO;
 import be.digitalcity.projetfinal.models.entity.Painting;
 import be.digitalcity.projetfinal.models.entity.abstractClass.BaseEntity;
@@ -18,11 +19,13 @@ public class PaintingServiceImpl implements PaintingService {
     private final PaintingRepository repository;
     private final PaintingMapper mapper;
     private final PaintingTypeService paintingTypeService;
+    private final PaintingTypeMapper paintingTypeMapper;
 
-    public PaintingServiceImpl(PaintingRepository repository, PaintingMapper mapper, PaintingTypeService paintingTypeService) {
+    public PaintingServiceImpl(PaintingRepository repository, PaintingMapper mapper, PaintingTypeService paintingTypeService, PaintingTypeMapper paintingTypeMapper) {
         this.repository = repository;
         this.mapper = mapper;
         this.paintingTypeService = paintingTypeService;
+        this.paintingTypeMapper = paintingTypeMapper;
     }
 
     @Override
@@ -64,9 +67,13 @@ public class PaintingServiceImpl implements PaintingService {
         toUpdate.setPrice(paintingForm.getPrice());
         toUpdate.setDescription(paintingForm.getDescription());
         toUpdate.setName(paintingForm.getName());
-        toUpdate.setPaintingType(paintingForm.getPaintingType());
-        toUpdate.setSrc(paintingForm.getSrc());
-        toUpdate.setAvailable(paintingForm.isAvailable());
+        toUpdate.setPaintingType(this.paintingTypeMapper.toEntity(this.paintingTypeService.getOne(paintingForm.getPaintingTypeId())));
+        if (paintingForm.getSrc() != null) {
+            toUpdate.setSrc(paintingForm.getSrc());
+        }
+        if (paintingForm.getIsAvailable() != null) {
+            toUpdate.setAvailable(paintingForm.getIsAvailable());
+        }
 
         repository.save(toUpdate);
 

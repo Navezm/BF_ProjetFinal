@@ -66,8 +66,10 @@ public class PicturePurchaseServiceImpl implements PicturePurchaseService {
                 .filter(BaseEntity::isActive)
                 .orElseThrow(() -> new IllegalArgumentException("The picture purchase doesn't exist"));
 
-        toUpdate.setPictures(picturePurchaseForm.getPictures());
-        toUpdate.setUser(picturePurchaseForm.getUser());
+        if(picturePurchaseForm.getPictures() != null)
+            toUpdate.setPictures(picturePurchaseForm.getPictures());
+        if(picturePurchaseForm.getUser() != null)
+            toUpdate.setUser(picturePurchaseForm.getUser());
         toUpdate.setStatus(picturePurchaseForm.getStatus());
 
         repository.save(toUpdate);
