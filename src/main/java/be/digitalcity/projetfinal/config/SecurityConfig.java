@@ -67,8 +67,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // Painting
                 .antMatchers(HttpMethod.GET, "/painting/**").hasAuthority("shopAccess")
-                .antMatchers(HttpMethod.POST, "/painting/**").hasAuthority("addpainting")
-                .antMatchers(HttpMethod.DELETE, "/painting/**").hasAuthority("deletepainting")
+                .antMatchers(HttpMethod.POST, "/painting/**").hasAuthority("addPainting")
+                .antMatchers(HttpMethod.DELETE, "/painting/**").hasAuthority("deletePainting")
                 .antMatchers(HttpMethod.PUT, "/painting/**").hasAuthority("ADMIN")
 
                 // PaintingPurchase
