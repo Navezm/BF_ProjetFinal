@@ -80,8 +80,19 @@ public class PaintingServiceImpl implements PaintingService {
         return mapper.toDto(toUpdate);
     }
 
+//    @Override
+//    public PaintingDTO insert(PaintingForm paintingForm, String filename) {
+//        paintingForm.setSrc(filename);
+//        Painting toInsert = mapper.fromFormToEntity(paintingForm);
+//
+//        repository.save(toInsert);
+//
+//        return mapper.toDto(toInsert);
+//    }
+
     @Override
     public PaintingDTO insert(PaintingForm paintingForm) {
+//        paintingForm.setSrc(filename);
         Painting toInsert = mapper.fromFormToEntity(paintingForm);
 
         repository.save(toInsert);

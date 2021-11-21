@@ -78,8 +78,19 @@ public class PictureServiceImpl implements PictureService {
         return mapper.toDto(toUpdate);
     }
 
+//    @Override
+//    public PictureDTO insert(PictureForm pictureForm, String filename) {
+//        pictureForm.setSrc(filename);
+//        Picture toInsert = mapper.fromFormToEntity(pictureForm);
+//
+//        repository.save(toInsert);
+//
+//        return mapper.toDto(toInsert);
+//    }
+
     @Override
     public PictureDTO insert(PictureForm pictureForm) {
+//        pictureForm.setSrc(filename);
         Picture toInsert = mapper.fromFormToEntity(pictureForm);
 
         repository.save(toInsert);
