@@ -21,6 +21,7 @@ public class PaintingForm {
     @NotNull
     @Length(min = 2, max = 100)
     private String name;
+    @NotNull
     private String src;
     @NotNull
     private String description;

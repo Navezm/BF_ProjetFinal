@@ -21,6 +21,7 @@ public class PictureForm {
     @NotNull
     @Length(min = 2, max = 100)
     private String name;
+    @NotNull
     private String src;
     @NotNull
     @Length(min = 0, max = 255)
