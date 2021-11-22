@@ -5,13 +5,10 @@ import be.digitalcity.projetfinal.models.form.PaintingForm;
 import be.digitalcity.projetfinal.services.PaintingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.security.RolesAllowed;
 import java.io.IOException;
 import java.nio.file.Path;
 import javax.validation.Valid;
@@ -25,7 +22,7 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 @RestController
 @RequestMapping("painting")
 public class PaintingController {
-    // Define the location
+    // Define the location for the files
     public static final String DIRECTORY = "src/main/resources/img/painting";
 
     private final PaintingService service;
@@ -51,12 +48,7 @@ public class PaintingController {
     }
 
     @PostMapping
-    public ResponseEntity<PaintingDTO> insert(@Valid @RequestBody PaintingForm form, @RequestParam("files")MultipartFile multipartFiles) throws IOException {
-        String filename = StringUtils.cleanPath(multipartFiles.getOriginalFilename());
-        Path fileStorage = get(DIRECTORY, filename).toAbsolutePath().normalize();
-        copy(multipartFiles.getInputStream(), fileStorage, REPLACE_EXISTING);
-
-//        return ResponseEntity.ok(service.insert(form, filename));
+    public ResponseEntity<PaintingDTO> insert(@Valid @RequestBody PaintingForm form) throws IOException {
         return ResponseEntity.ok(service.insert(form));
     }
 
