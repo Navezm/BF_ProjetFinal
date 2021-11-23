@@ -44,36 +44,70 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Method used to get all the users from the DB
+     * @return ResponseEntity<List<UserDTO>>
+     */
     @GetMapping({""})
     public ResponseEntity<List<UserDTO>> getAll(){
         return ResponseEntity.ok(service.findAll());
     }
 
+    /**
+     * Method used to get one user in particular
+     * @param id
+     * @return ResponseEntity<UserDTO>
+     */
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getOne(@PathVariable Long id){
         return ResponseEntity.ok(service.getOne(id));
     }
 
+    /**
+     * Method used to get the users by group
+     * @param id
+     * @return ResponseEntity<List<UserDTO>>
+     */
     @GetMapping("/group/{id}")
     public ResponseEntity<List<UserDTO>> getByGroup(@PathVariable Long id){
         return ResponseEntity.ok(service.findByGroup(id));
     }
 
+    /**
+     * Method used to get the painting purchase by user
+     * @param id
+     * @return ResponseEntity<List<PaintingPurchaseDTO>>
+     */
     @GetMapping("/{id}/paintingPurchase")
     public ResponseEntity<List<PaintingPurchaseDTO>> getPaintingPurchaseByUser(@PathVariable Long id){
         return ResponseEntity.ok(paintingPurchaseService.findByUser(id));
     }
 
+    /**
+     * Method used to get the painting quotation by user
+     * @param id
+     * @return ResponseEntity<List<PaintingQuotationDTO>>
+     */
     @GetMapping("/{id}/paintingQuotation")
     public ResponseEntity<List<PaintingQuotationDTO>> getPaintingQuotationByUser(@PathVariable Long id){
         return ResponseEntity.ok(paintingQuotationService.findByUser(id));
     }
 
+    /**
+     * Method used to get the picture purchase by user
+     * @param id
+     * @return ResponseEntity<List<PicturePurchaseDTO>>
+     */
     @GetMapping("/{id}/picturePurchase")
     public ResponseEntity<List<PicturePurchaseDTO>> getPicturePurchaseByUser(@PathVariable Long id){
         return ResponseEntity.ok(picturePurchaseService.findByUser(id));
     }
 
+    /**
+     * Method used to get the reservation by user
+     * @param id
+     * @return ResponseEntity<List<ReservationDTO>>
+     */
     @GetMapping("/{id}/reservation")
     public ResponseEntity<List<ReservationDTO>> getReservationByUser(@PathVariable Long id){
         return ResponseEntity.ok(reservationService.findByUser(id));
