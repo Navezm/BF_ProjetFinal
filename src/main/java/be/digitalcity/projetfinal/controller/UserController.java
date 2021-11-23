@@ -113,21 +113,43 @@ public class UserController {
         return ResponseEntity.ok(reservationService.findByUser(id));
     }
 
+    /**
+     * Method used to insert a user inside the DB
+     * @param form
+     * @return ResponseEntity<UserDTO>
+     */
     @PostMapping
     public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserRegisterForm form){
         return ResponseEntity.ok(service.insert(form));
     }
 
+    /**
+     * Method used to delete a user from the DB
+     * @param id
+     * @return ResponseEntity<UserDTO>
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<UserDTO> delete(@PathVariable Long id){
         return ResponseEntity.ok(service.delete(id));
     }
 
+    /**
+     * Method used to update a user inside the DB
+     * @param id
+     * @param form
+     * @return ResponseEntity<UserDTO>
+     */
     @PutMapping("/{id}")
     public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserUpdateForm form){
         return ResponseEntity.ok(service.update(id, form));
     }
 
+    /**
+     * Method used to add a role to a particular user
+     * @param user
+     * @param form
+     * @return ResponseEntity<UserDTO>
+     */
     @PatchMapping("/{id}/roles")
     public ResponseEntity<UserDTO> addRoles(@PathVariable("id") User user, @Valid @RequestBody UserAddRoleForm form) {
         this.userRepository.save(this.service.addRoles(user, form));
@@ -135,6 +157,12 @@ public class UserController {
         return ResponseEntity.ok(userMapper.toDto(user));
     }
 
+    /**
+     * Method used to add a group to a particular user
+     * @param user
+     * @param form
+     * @return ResponseEntity<UserDTO>
+     */
     @PatchMapping("/{id}/group")
     public ResponseEntity<UserDTO> addGroup(@PathVariable("id") User user, @Valid @RequestBody UserAddGroup form){
         Group group = groupMapper.toEntity(this.groupService.getOne(form.getId()));
