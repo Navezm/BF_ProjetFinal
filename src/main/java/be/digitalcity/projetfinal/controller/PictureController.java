@@ -4,7 +4,14 @@ import be.digitalcity.projetfinal.models.dto.PictureDTO;
 import be.digitalcity.projetfinal.models.entity.Picture;
 import be.digitalcity.projetfinal.models.form.PictureForm;
 import be.digitalcity.projetfinal.services.PictureService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +29,7 @@ import static java.nio.file.Files.copy;
 import static java.nio.file.Paths.get;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
+@Slf4j
 @RestController
 @RequestMapping(path = "picture")
 public class PictureController {
@@ -43,9 +53,16 @@ public class PictureController {
         return ResponseEntity.ok(service.getOne(id));
     }
 
-//    @GetMapping("/type/{id}")
-//    public ResponseEntity<List<PictureDTO>> getByType(@PathVariable Long id){
-//        return ResponseEntity.ok(service.findByType(id));
+//    @GetMapping(value = "/allBack", produces = MediaType.IMAGE_JPEG_VALUE)
+//    public ResponseEntity<JSONObject> image() throws IOException {
+//        final ByteArrayResource inputStream = new ByteArrayResource(Files.readAllBytes(Paths.get("src/main/resources/img/picture/8d638f7cad_50170753_22048-yuekai-du-grand-banquet-copie.jpg")));
+//        JSONObject obj  = new JSONObject();
+//        try{
+//            obj.put("superImage", inputStream);
+//        } catch(JSONException e){
+//            log.error("Imqa" );
+//        }
+//        return ResponseEntity.ok(obj);
 //    }
 
     @GetMapping("/isAvailable")
